@@ -38,6 +38,11 @@ Route::get('/test', function () {
     ]);
 });
 
+// Ultra-simple test route without any Laravel features
+Route::get('/simple', function () {
+    return 'Hello World - PHP is working!';
+});
+
 Route::get('/dashboard', function () {
     /** @var User $user */
     $user = Auth::user();
