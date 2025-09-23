@@ -6,7 +6,7 @@
       "use": "vercel-php@0.7.4"
     }
   ],
-  "buildCommand": "composer install --no-dev --optimize-autoloader && npm install && npm run build",
+  "buildCommand": "chmod +x scripts/pre-build.sh && ./scripts/pre-build.sh && composer install --no-dev --optimize-autoloader && npm install && npm run build",
   "installCommand": "composer install --no-dev --optimize-autoloader",
   "routes": [
     {
