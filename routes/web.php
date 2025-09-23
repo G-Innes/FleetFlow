@@ -12,20 +12,12 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    try {
-        if (Auth::check()) {
-            return redirect()->route('dashboard');
-        }
-        return Inertia::render('Welcome', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
-        ]);
-    } catch (\Exception $e) {
-        Log::error('Home route error: ' . $e->getMessage());
-        return response()->json(['error' => 'Application error: ' . $e->getMessage()], 500);
-    }
+    return response()->json([
+        'message' => 'Fleet Fox Task Management API',
+        'status' => 'running',
+        'php_version' => PHP_VERSION,
+        'laravel_version' => Application::VERSION
+    ]);
 });
 
 // Simple test route to check if the app is working
