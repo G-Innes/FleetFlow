@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Category;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+class CategoryController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $categories = Category::withCount('tasks')->get();
+        
+        return Inertia::render('Categories/Index', [
+            'categories' => $categories
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name',
+            'color' => 'required|string|regex:/^#[0-9A-Fa-f]{6}$/',
+            'description' => 'nullable|string'
+        ]);
+
+        Category::create($request->all());
+
+        return redirect()->route('categories.index')
+            ->with('success', 'Category created successfully.');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Category $category)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+            'color' => 'required|string|regex:/^#[0-9A-Fa-f]{6}$/',
+            'description' => 'nullable|string'
+        ]);
+
+        $category->update($request->all());
+
+        return redirect()->route('categories.index')
+            ->with('success', 'Category updated successfully.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Category $category)
+    {
+        // Check if category has tasks
+        if ($category->tasks()->count() > 0) {
+            return redirect()->route('categories.index')
+                ->with('error', 'Cannot delete category with existing tasks.');
+        }
+
+        $category->delete();
+
+        return redirect()->route('categories.index')
+            ->with('success', 'Category deleted successfully.');
+    }
+}
