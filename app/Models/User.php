@@ -48,9 +48,11 @@ class User extends Authenticatable
 
     /**
      * Get the tasks for the user.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function tasks()
     {
-        return $this->hasMany(\App\Models\Task::class);
+        return $this->hasMany(Task::class);
     }
 }

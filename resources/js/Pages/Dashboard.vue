@@ -4,8 +4,19 @@ import { Head, Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 const props = defineProps({
-    stats: Object,
-    recentTasks: Array
+    stats: {
+        type: Object,
+        default: () => ({
+            totalTasks: 0,
+            completedTasks: 0,
+            dueSoon: 0,
+            overdue: 0
+        })
+    },
+    recentTasks: {
+        type: Array,
+        default: () => []
+    }
 });
 
 const getPriorityColor = (priority) => {
@@ -18,7 +29,7 @@ const getPriorityColor = (priority) => {
 };
 
 const completionRate = computed(() => {
-    if (props.stats.totalTasks === 0) return 0;
+    if (!props.stats || props.stats.totalTasks === 0) return 0;
     return Math.round((props.stats.completedTasks / props.stats.totalTasks) * 100);
 });
 </script>
@@ -53,7 +64,7 @@ const completionRate = computed(() => {
                         <div class="flex items-center justify-between">
                                   <div>
                                       <p class="text-fleet-text-muted text-sm font-medium">Total Tasks</p>
-                                      <p class="text-3xl font-bold text-fleet-text">{{ props.stats.totalTasks }}</p>
+                                      <p class="text-3xl font-bold text-fleet-text">{{ props.stats?.totalTasks || 0 }}</p>
                                   </div>
                             <div class="w-12 h-12 bg-fleet-accent/10 rounded-lg flex items-center justify-center">
                                 <svg class="w-6 h-6 text-fleet-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,7 +79,7 @@ const completionRate = computed(() => {
                         <div class="flex items-center justify-between">
                                   <div>
                                       <p class="text-fleet-text-muted text-sm font-medium">Completed</p>
-                                      <p class="text-3xl font-bold text-fleet-success">{{ props.stats.completedTasks }}</p>
+                                      <p class="text-3xl font-bold text-fleet-success">{{ props.stats?.completedTasks || 0 }}</p>
                                       <p class="text-fleet-text-muted text-sm">{{ completionRate }}% completion rate</p>
                                   </div>
                             <div class="w-12 h-12 bg-fleet-success/10 rounded-lg flex items-center justify-center">
@@ -84,7 +95,7 @@ const completionRate = computed(() => {
                         <div class="flex items-center justify-between">
                                   <div>
                                       <p class="text-fleet-text-muted text-sm font-medium">Due Soon</p>
-                                      <p class="text-3xl font-bold text-fleet-warning">{{ props.stats.dueSoon }}</p>
+                                      <p class="text-3xl font-bold text-fleet-warning">{{ props.stats?.dueSoon || 0 }}</p>
                                       <p class="text-fleet-text-muted text-sm">Next 3 days</p>
                                   </div>
                             <div class="w-12 h-12 bg-fleet-warning/10 rounded-lg flex items-center justify-center">
@@ -100,7 +111,7 @@ const completionRate = computed(() => {
                         <div class="flex items-center justify-between">
                                   <div>
                                       <p class="text-fleet-text-muted text-sm font-medium">Overdue</p>
-                                      <p class="text-3xl font-bold text-fleet-danger">{{ props.stats.overdue }}</p>
+                                      <p class="text-3xl font-bold text-fleet-danger">{{ props.stats?.overdue || 0 }}</p>
                                       <p class="text-fleet-text-muted text-sm">Requires attention</p>
                                   </div>
                             <div class="w-12 h-12 bg-fleet-danger/10 rounded-lg flex items-center justify-center">
@@ -166,7 +177,7 @@ const completionRate = computed(() => {
                             </div>
                                   <div class="space-y-3">
                                       <div 
-                                          v-for="task in props.recentTasks" 
+                                          v-for="task in (props.recentTasks || [])" 
                                           :key="task.id"
                                           class="flex items-center justify-between p-4 bg-fleet-dark/30 rounded-lg border border-fleet-accent/10 hover:border-fleet-accent/30 transition-all duration-200"
                                       >

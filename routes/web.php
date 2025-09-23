@@ -4,8 +4,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TaskExportController;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,12 +24,16 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    /** @var User $user */
     $user = Auth::user();
     
     // Get real task statistics
     $totalTasks = $user->tasks()->count();
     $completedTasks = $user->tasks()->where('is_completed', true)->count();
-    $dueSoon = $user->tasks()->dueSoon()->count();
+    $dueSoon = $user->tasks()->where('due_date', '<=', now()->addDays(3))
+                      ->where('due_date', '>=', now())
+                      ->where('is_completed', false)
+                      ->count();
     $overdue = $user->tasks()->where('due_date', '<', now())->where('is_completed', false)->count();
     
     // Get recent tasks
@@ -38,7 +44,7 @@ Route::get('/dashboard', function () {
         ->get()
         ->map(function ($task) {
             return [
-                '∏id' => $task->id,
+                'id' => $task->id,
                 'title' => $task->title,
                 'category' => $task->category?->name ?? 'No Category',
                 'due' => $task->due_date ? $task->due_date->diffForHumans() : 'No due date',
@@ -47,6 +53,16 @@ Route::get('/dashboard', function () {
                 'is_due_soon' => $task->is_due_soon
             ];
         });
+    
+    // Debug: Log the data to see what's being passed
+    Log::info('Dashboard Data:', [
+        'totalTasks' => $totalTasks,
+        'completedTasks' => $completedTasks,
+        'dueSoon' => $dueSoon,
+        'overdue' => $overdue,
+        'recentTasksCount' => $recentTasks->count(),
+        'recentTasks' => $recentTasks->toArray()
+    ]);
     
     return Inertia::render('Dashboard', [
         'stats' => [
