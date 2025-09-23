@@ -13,7 +13,9 @@
 /.zed
 /auth.json
 /node_modules
-/public/build
+# Note: we commit built assets for Vercel (builder doesn't run npm build)
+# If you later move to a host that runs the FE build, you can re-ignore this.
+# /public/build
 /public/hot
 /public/storage
 /storage/*.key
