@@ -38,7 +38,7 @@ Route::get('/dashboard', function () {
         ->get()
         ->map(function ($task) {
             return [
-                'id' => $task->id,
+                '∏id' => $task->id,
                 'title' => $task->title,
                 'category' => $task->category?->name ?? 'No Category',
                 'due' => $task->due_date ? $task->due_date->diffForHumans() : 'No due date',
