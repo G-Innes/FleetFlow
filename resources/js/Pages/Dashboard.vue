@@ -1,33 +1,25 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
-// Mock data for demonstration - will be replaced with real data
-const stats = ref({
-    totalTasks: 24,
-    completedTasks: 18,
-    dueSoon: 3,
-    overdue: 1
+const props = defineProps({
+    stats: Object,
+    recentTasks: Array
 });
-
-const recentTasks = ref([
-    { id: 1, title: 'Vehicle Inspection - Truck #42', category: 'Vehicle Inspections', due: '2 hours', priority: 'high', completed: false },
-    { id: 2, title: 'Fleet Maintenance - Van #15', category: 'Fleet Maintenance', due: '1 day', priority: 'medium', completed: false },
-    { id: 3, title: 'Driver Assignment - Route A', category: 'Driver Tasks', due: '3 days', priority: 'low', completed: true },
-]);
 
 const getPriorityColor = (priority) => {
     switch(priority) {
-        case 'high': return 'text-fleet-danger border-fleet-danger';
-        case 'medium': return 'text-fleet-warning border-fleet-warning';
-        case 'low': return 'text-fleet-success border-fleet-success';
+        case 'High': return 'text-fleet-danger border-fleet-danger';
+        case 'Medium': return 'text-fleet-warning border-fleet-warning';
+        case 'Low': return 'text-fleet-success border-fleet-success';
         default: return 'text-fleet-text-muted border-fleet-text-muted';
     }
 };
 
 const completionRate = computed(() => {
-    return Math.round((stats.value.completedTasks / stats.value.totalTasks) * 100);
+    if (props.stats.totalTasks === 0) return 0;
+    return Math.round((props.stats.completedTasks / props.stats.totalTasks) * 100);
 });
 </script>
 
@@ -59,10 +51,10 @@ const completionRate = computed(() => {
                     <!-- Total Tasks Card -->
                     <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 hover:border-fleet-accent/40 transition-all duration-300 hover:shadow-lg hover:shadow-fleet-accent/10">
                         <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-fleet-text-muted text-sm font-medium">Total Tasks</p>
-                                <p class="text-3xl font-bold text-fleet-text">{{ stats.totalTasks }}</p>
-                            </div>
+                                  <div>
+                                      <p class="text-fleet-text-muted text-sm font-medium">Total Tasks</p>
+                                      <p class="text-3xl font-bold text-fleet-text">{{ props.stats.totalTasks }}</p>
+                                  </div>
                             <div class="w-12 h-12 bg-fleet-accent/10 rounded-lg flex items-center justify-center">
                                 <svg class="w-6 h-6 text-fleet-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
@@ -74,11 +66,11 @@ const completionRate = computed(() => {
                     <!-- Completed Tasks Card -->
                     <div class="bg-fleet-darker border border-fleet-success/20 rounded-xl p-6 hover:border-fleet-success/40 transition-all duration-300 hover:shadow-lg hover:shadow-fleet-success/10">
                         <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-fleet-text-muted text-sm font-medium">Completed</p>
-                                <p class="text-3xl font-bold text-fleet-success">{{ stats.completedTasks }}</p>
-                                <p class="text-fleet-text-muted text-sm">{{ completionRate }}% completion rate</p>
-                            </div>
+                                  <div>
+                                      <p class="text-fleet-text-muted text-sm font-medium">Completed</p>
+                                      <p class="text-3xl font-bold text-fleet-success">{{ props.stats.completedTasks }}</p>
+                                      <p class="text-fleet-text-muted text-sm">{{ completionRate }}% completion rate</p>
+                                  </div>
                             <div class="w-12 h-12 bg-fleet-success/10 rounded-lg flex items-center justify-center">
                                 <svg class="w-6 h-6 text-fleet-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -90,11 +82,11 @@ const completionRate = computed(() => {
                     <!-- Due Soon Card -->
                     <div class="bg-fleet-darker border border-fleet-warning/20 rounded-xl p-6 hover:border-fleet-warning/40 transition-all duration-300 hover:shadow-lg hover:shadow-fleet-warning/10">
                         <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-fleet-text-muted text-sm font-medium">Due Soon</p>
-                                <p class="text-3xl font-bold text-fleet-warning">{{ stats.dueSoon }}</p>
-                                <p class="text-fleet-text-muted text-sm">Next 3 days</p>
-                            </div>
+                                  <div>
+                                      <p class="text-fleet-text-muted text-sm font-medium">Due Soon</p>
+                                      <p class="text-3xl font-bold text-fleet-warning">{{ props.stats.dueSoon }}</p>
+                                      <p class="text-fleet-text-muted text-sm">Next 3 days</p>
+                                  </div>
                             <div class="w-12 h-12 bg-fleet-warning/10 rounded-lg flex items-center justify-center">
                                 <svg class="w-6 h-6 text-fleet-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -106,11 +98,11 @@ const completionRate = computed(() => {
                     <!-- Overdue Card -->
                     <div class="bg-fleet-darker border border-fleet-danger/20 rounded-xl p-6 hover:border-fleet-danger/40 transition-all duration-300 hover:shadow-lg hover:shadow-fleet-danger/10">
                         <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-fleet-text-muted text-sm font-medium">Overdue</p>
-                                <p class="text-3xl font-bold text-fleet-danger">{{ stats.overdue }}</p>
-                                <p class="text-fleet-text-muted text-sm">Requires attention</p>
-                            </div>
+                                  <div>
+                                      <p class="text-fleet-text-muted text-sm font-medium">Overdue</p>
+                                      <p class="text-3xl font-bold text-fleet-danger">{{ props.stats.overdue }}</p>
+                                      <p class="text-fleet-text-muted text-sm">Requires attention</p>
+                                  </div>
                             <div class="w-12 h-12 bg-fleet-danger/10 rounded-lg flex items-center justify-center">
                                 <svg class="w-6 h-6 text-fleet-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
@@ -172,35 +164,35 @@ const completionRate = computed(() => {
                                     View All
                                 </Link>
                             </div>
-                            <div class="space-y-3">
-                                <div 
-                                    v-for="task in recentTasks" 
-                                    :key="task.id"
-                                    class="flex items-center justify-between p-4 bg-fleet-dark/30 rounded-lg border border-fleet-accent/10 hover:border-fleet-accent/30 transition-all duration-200"
-                                >
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-2 h-2 rounded-full bg-fleet-accent"></div>
-                                        <div>
-                                            <p class="text-fleet-text font-medium">{{ task.title }}</p>
-                                            <p class="text-fleet-text-muted text-sm">{{ task.category }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center space-x-3">
-                                        <span 
-                                            :class="getPriorityColor(task.priority)"
-                                            class="px-2 py-1 rounded-full text-xs font-medium border"
-                                        >
-                                            {{ task.priority }}
-                                        </span>
-                                        <span class="text-fleet-text-muted text-sm">{{ task.due }}</span>
-                                        <div v-if="task.completed" class="w-5 h-5 bg-fleet-success rounded-full flex items-center justify-center">
-                                            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                  <div class="space-y-3">
+                                      <div 
+                                          v-for="task in props.recentTasks" 
+                                          :key="task.id"
+                                          class="flex items-center justify-between p-4 bg-fleet-dark/30 rounded-lg border border-fleet-accent/10 hover:border-fleet-accent/30 transition-all duration-200"
+                                      >
+                                          <div class="flex items-center space-x-3">
+                                              <div class="w-2 h-2 rounded-full bg-fleet-accent"></div>
+                                              <div>
+                                                  <p class="text-fleet-text font-medium">{{ task.title }}</p>
+                                                  <p class="text-fleet-text-muted text-sm">{{ task.category }}</p>
+                                              </div>
+                                          </div>
+                                          <div class="flex items-center space-x-3">
+                                              <span 
+                                                  :class="getPriorityColor(task.priority)"
+                                                  class="px-2 py-1 rounded-full text-xs font-medium border"
+                                              >
+                                                  {{ task.priority }}
+                                              </span>
+                                              <span class="text-fleet-text-muted text-sm">{{ task.due }}</span>
+                                              <div v-if="task.completed" class="w-5 h-5 bg-fleet-success rounded-full flex items-center justify-center">
+                                                  <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                  </svg>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
                         </div>
                     </div>
                 </div>

@@ -22,7 +22,41 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $user = Auth::user();
+    
+    // Get real task statistics
+    $totalTasks = $user->tasks()->count();
+    $completedTasks = $user->tasks()->where('is_completed', true)->count();
+    $dueSoon = $user->tasks()->dueSoon()->count();
+    $overdue = $user->tasks()->where('due_date', '<', now())->where('is_completed', false)->count();
+    
+    // Get recent tasks
+    $recentTasks = $user->tasks()
+        ->with('category')
+        ->orderBy('created_at', 'desc')
+        ->limit(5)
+        ->get()
+        ->map(function ($task) {
+            return [
+                'id' => $task->id,
+                'title' => $task->title,
+                'category' => $task->category?->name ?? 'No Category',
+                'due' => $task->due_date ? $task->due_date->diffForHumans() : 'No due date',
+                'priority' => $task->priority_label,
+                'completed' => $task->is_completed,
+                'is_due_soon' => $task->is_due_soon
+            ];
+        });
+    
+    return Inertia::render('Dashboard', [
+        'stats' => [
+            'totalTasks' => $totalTasks,
+            'completedTasks' => $completedTasks,
+            'dueSoon' => $dueSoon,
+            'overdue' => $overdue
+        ],
+        'recentTasks' => $recentTasks
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
