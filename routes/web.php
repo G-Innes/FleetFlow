@@ -12,14 +12,29 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect()->route('dashboard');
+    try {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+        return Inertia::render('Welcome', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+        ]);
+    } catch (\Exception $e) {
+        Log::error('Home route error: ' . $e->getMessage());
+        return response()->json(['error' => 'Application error: ' . $e->getMessage()], 500);
     }
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+});
+
+// Simple test route to check if the app is working
+Route::get('/test', function () {
+    return response()->json([
+        'status' => 'ok',
+        'database' => config('database.default'),
+        'app_env' => config('app.env'),
+        'app_debug' => config('app.debug')
     ]);
 });
 
