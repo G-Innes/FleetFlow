@@ -37,6 +37,18 @@ class TaskController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $categories = Category::all();
+        
+        return Inertia::render('Tasks/Create', [
+            'categories' => $categories
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -60,6 +72,24 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')
             ->with('success', 'Task created successfully.');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Task $task)
+    {
+        // Ensure user can only edit their own tasks
+        if ($task->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $categories = Category::all();
+        
+        return Inertia::render('Tasks/Edit', [
+            'task' => $task,
+            'categories' => $categories
+        ]);
     }
 
     /**

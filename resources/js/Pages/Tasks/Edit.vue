@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 const props = defineProps({
     task: Object,
@@ -29,7 +30,7 @@ const submit = () => {
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-3xl font-bold text-fleet-text">Edit Task</h1>
-                    <p class="text-fleet-text-muted mt-1">Update your fleet operations task</p>
+                    <p class="text-fleet-text-muted mt-1">Update task details</p>
                 </div>
                 <Link 
                     :href="route('tasks.index')" 
@@ -53,9 +54,9 @@ const submit = () => {
                                 id="title"
                                 v-model="form.title"
                                 type="text"
-                                required
-                                class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text placeholder-fleet-text-muted focus:border-fleet-accent focus:ring-2 focus:ring-fleet-accent/20 focus:outline-none transition-all duration-200"
+                                class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text placeholder-fleet-text-muted focus:border-fleet-accent focus:ring-1 focus:ring-fleet-accent focus:outline-none transition-all duration-200"
                                 placeholder="Enter task title..."
+                                required
                             />
                             <div v-if="form.errors.title" class="mt-1 text-sm text-fleet-danger">
                                 {{ form.errors.title }}
@@ -71,8 +72,8 @@ const submit = () => {
                                 id="description"
                                 v-model="form.description"
                                 rows="4"
-                                class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text placeholder-fleet-text-muted focus:border-fleet-accent focus:ring-2 focus:ring-fleet-accent/20 focus:outline-none transition-all duration-200 resize-none"
-                                placeholder="Enter task description (optional)..."
+                                class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text placeholder-fleet-text-muted focus:border-fleet-accent focus:ring-1 focus:ring-fleet-accent focus:outline-none transition-all duration-200 resize-none"
+                                placeholder="Enter task description..."
                             ></textarea>
                             <div v-if="form.errors.description" class="mt-1 text-sm text-fleet-danger">
                                 {{ form.errors.description }}
@@ -89,10 +90,14 @@ const submit = () => {
                                 <select
                                     id="category_id"
                                     v-model="form.category_id"
-                                    class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text focus:border-fleet-accent focus:ring-2 focus:ring-fleet-accent/20 focus:outline-none transition-all duration-200"
+                                    class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text focus:border-fleet-accent focus:ring-1 focus:ring-fleet-accent focus:outline-none transition-all duration-200"
                                 >
-                                    <option value="">Select a category (optional)</option>
-                                    <option v-for="category in categories" :key="category.id" :value="category.id">
+                                    <option value="">Select a category</option>
+                                    <option 
+                                        v-for="category in categories" 
+                                        :key="category.id" 
+                                        :value="category.id"
+                                    >
                                         {{ category.name }}
                                     </option>
                                 </select>
@@ -109,8 +114,8 @@ const submit = () => {
                                 <select
                                     id="priority"
                                     v-model="form.priority"
+                                    class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text focus:border-fleet-accent focus:ring-1 focus:ring-fleet-accent focus:outline-none transition-all duration-200"
                                     required
-                                    class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text focus:border-fleet-accent focus:ring-2 focus:ring-fleet-accent/20 focus:outline-none transition-all duration-200"
                                 >
                                     <option value="1">Low Priority</option>
                                     <option value="2">Medium Priority</option>
@@ -131,36 +136,31 @@ const submit = () => {
                                 id="due_date"
                                 v-model="form.due_date"
                                 type="datetime-local"
-                                class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text focus:border-fleet-accent focus:ring-2 focus:ring-fleet-accent/20 focus:outline-none transition-all duration-200"
+                                class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text focus:border-fleet-accent focus:ring-1 focus:ring-fleet-accent focus:outline-none transition-all duration-200"
                             />
                             <div v-if="form.errors.due_date" class="mt-1 text-sm text-fleet-danger">
                                 {{ form.errors.due_date }}
                             </div>
-                            <p class="mt-1 text-sm text-fleet-text-muted">
-                                Leave empty for no due date
-                            </p>
                         </div>
 
                         <!-- Completion Status -->
-                        <div>
-                            <label class="flex items-center space-x-3 cursor-pointer">
-                                <input
-                                    v-model="form.is_completed"
-                                    type="checkbox"
-                                    class="w-5 h-5 text-fleet-accent bg-fleet-dark border-fleet-accent/20 rounded focus:ring-fleet-accent/20 focus:ring-2"
-                                />
-                                <span class="text-sm font-medium text-fleet-text">Mark as completed</span>
+                        <div class="flex items-center">
+                            <input
+                                id="is_completed"
+                                v-model="form.is_completed"
+                                type="checkbox"
+                                class="w-4 h-4 text-fleet-accent bg-fleet-dark border-fleet-accent/20 rounded focus:ring-fleet-accent focus:ring-2"
+                            />
+                            <label for="is_completed" class="ml-2 text-sm font-medium text-fleet-text">
+                                Mark as completed
                             </label>
-                            <div v-if="form.errors.is_completed" class="mt-1 text-sm text-fleet-danger">
-                                {{ form.errors.is_completed }}
-                            </div>
                         </div>
 
-                        <!-- Form Actions -->
-                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-fleet-accent/20">
+                        <!-- Submit Buttons -->
+                        <div class="flex items-center justify-end space-x-4 pt-6">
                             <Link 
                                 :href="route('tasks.index')" 
-                                class="px-6 py-3 bg-fleet-dark border border-fleet-accent/20 text-fleet-text rounded-lg font-medium hover:bg-fleet-accent/10 hover:border-fleet-accent/40 transition-all duration-200"
+                                class="px-6 py-3 bg-fleet-darker border border-fleet-accent/20 text-fleet-text rounded-lg font-medium hover:bg-fleet-accent/10 hover:border-fleet-accent/40 transition-all duration-200"
                             >
                                 Cancel
                             </Link>
