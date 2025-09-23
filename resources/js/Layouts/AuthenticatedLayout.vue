@@ -12,9 +12,9 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-fleet-dark">
             <nav
-                class="border-b border-gray-100 bg-white"
+                class="border-b border-fleet-accent/20 bg-fleet-darker/50 backdrop-blur-sm"
             >
                 <!-- Primary Navigation Menu -->
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -22,10 +22,13 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')">
-                                    <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-gray-800"
-                                    />
+                                <Link :href="route('dashboard')" class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-fleet-accent rounded-lg flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="text-xl font-bold text-fleet-text">Fleet Fox</span>
                                 </Link>
                             </div>
 
@@ -36,8 +39,23 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
+                                    class="text-fleet-text hover:text-fleet-accent transition-colors"
                                 >
                                     Dashboard
+                                </NavLink>
+                                <NavLink
+                                    :href="route('tasks.index')"
+                                    :active="route().current('tasks.*')"
+                                    class="text-fleet-text hover:text-fleet-accent transition-colors"
+                                >
+                                    Tasks
+                                </NavLink>
+                                <NavLink
+                                    :href="route('categories.index')"
+                                    :active="route().current('categories.*')"
+                                    class="text-fleet-text hover:text-fleet-accent transition-colors"
+                                >
+                                    Categories
                                 </NavLink>
                             </div>
                         </div>
@@ -50,12 +68,17 @@ const showingNavigationDropdown = ref(false);
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
+                                                class="inline-flex items-center rounded-lg border border-fleet-accent/20 bg-fleet-darker px-4 py-2 text-sm font-medium leading-4 text-fleet-text transition duration-150 ease-in-out hover:bg-fleet-accent/10 hover:border-fleet-accent/40 focus:outline-none focus:ring-2 focus:ring-fleet-accent/20"
                                             >
+                                                <div class="w-8 h-8 bg-fleet-accent rounded-full flex items-center justify-center mr-2">
+                                                    <span class="text-sm font-semibold text-white">
+                                                        {{ $page.props.auth.user.name.charAt(0).toUpperCase() }}
+                                                    </span>
+                                                </div>
                                                 {{ $page.props.auth.user.name }}
 
                                                 <svg
-                                                    class="-me-0.5 ms-2 h-4 w-4"
+                                                    class="-me-0.5 ms-2 h-4 w-4 text-fleet-text-muted"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20"
                                                     fill="currentColor"
@@ -73,6 +96,7 @@ const showingNavigationDropdown = ref(false);
                                     <template #content>
                                         <DropdownLink
                                             :href="route('profile.edit')"
+                                            class="text-fleet-text hover:bg-fleet-accent/10"
                                         >
                                             Profile
                                         </DropdownLink>
@@ -80,6 +104,7 @@ const showingNavigationDropdown = ref(false);
                                             :href="route('logout')"
                                             method="post"
                                             as="button"
+                                            class="text-fleet-text hover:bg-fleet-accent/10"
                                         >
                                             Log Out
                                         </DropdownLink>
@@ -95,7 +120,7 @@ const showingNavigationDropdown = ref(false);
                                     showingNavigationDropdown =
                                         !showingNavigationDropdown
                                 "
-                                class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
+                                class="inline-flex items-center justify-center rounded-lg p-2 text-fleet-text-muted transition duration-150 ease-in-out hover:bg-fleet-accent/10 hover:text-fleet-accent focus:bg-fleet-accent/10 focus:text-fleet-accent focus:outline-none"
                             >
                                 <svg
                                     class="h-6 w-6"
@@ -137,40 +162,59 @@ const showingNavigationDropdown = ref(false);
                         block: showingNavigationDropdown,
                         hidden: !showingNavigationDropdown,
                     }"
-                    class="sm:hidden"
+                    class="sm:hidden bg-fleet-darker/95 backdrop-blur-sm"
                 >
                     <div class="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink
                             :href="route('dashboard')"
                             :active="route().current('dashboard')"
+                            class="text-fleet-text hover:bg-fleet-accent/10"
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('tasks.index')"
+                            :active="route().current('tasks.*')"
+                            class="text-fleet-text hover:bg-fleet-accent/10"
+                        >
+                            Tasks
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('categories.index')"
+                            :active="route().current('categories.*')"
+                            class="text-fleet-text hover:bg-fleet-accent/10"
+                        >
+                            Categories
                         </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
                     <div
-                        class="border-t border-gray-200 pb-1 pt-4"
+                        class="border-t border-fleet-accent/20 pb-1 pt-4"
                     >
                         <div class="px-4">
                             <div
-                                class="text-base font-medium text-gray-800"
+                                class="text-base font-medium text-fleet-text"
                             >
                                 {{ $page.props.auth.user.name }}
                             </div>
-                            <div class="text-sm font-medium text-gray-500">
+                            <div class="text-sm font-medium text-fleet-text-muted">
                                 {{ $page.props.auth.user.email }}
                             </div>
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')">
+                            <ResponsiveNavLink 
+                                :href="route('profile.edit')"
+                                class="text-fleet-text hover:bg-fleet-accent/10"
+                            >
                                 Profile
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 :href="route('logout')"
                                 method="post"
                                 as="button"
+                                class="text-fleet-text hover:bg-fleet-accent/10"
                             >
                                 Log Out
                             </ResponsiveNavLink>
@@ -181,7 +225,7 @@ const showingNavigationDropdown = ref(false);
 
             <!-- Page Heading -->
             <header
-                class="bg-white shadow"
+                class="bg-fleet-darker/50 backdrop-blur-sm border-b border-fleet-accent/20"
                 v-if="$slots.header"
             >
                 <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -190,7 +234,7 @@ const showingNavigationDropdown = ref(false);
             </header>
 
             <!-- Page Content -->
-            <main>
+            <main class="bg-fleet-dark min-h-screen">
                 <slot />
             </main>
         </div>
