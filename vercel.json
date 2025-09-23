@@ -16,7 +16,7 @@
   ],
   "env": {
     "APP_ENV": "production",
-    "APP_DEBUG": "false",
+    "APP_DEBUG": "true",
     "APP_NAME": "Fleet Fox Task Management",
     "APP_URL": "https://fleet-flow-ohr9w0keu-g-innes-projects.vercel.app",
     "APP_KEY": "base64:2MKeILbEfhqxkcRL7y+MENBjL0j9tAG6hv8wWxZfPvc=",
@@ -28,6 +28,9 @@
     "DB_PASSWORD": "npg_dt8EQqvW9ONo",
     "DB_SSLMODE": "require",
     "SESSION_DRIVER": "database",
+    "CACHE_DRIVER": "array",
+    "QUEUE_CONNECTION": "sync",
+    "LOG_CHANNEL": "stderr",
     "VERCEL_FORCE_NO_BUILD_CACHE": "1"
   }
 }
