@@ -14,7 +14,18 @@
   ],
   "env": {
     "APP_ENV": "production",
-    "APP_DEBUG": "false"
+    "APP_DEBUG": "false",
+    "APP_NAME": "Fleet Fox Task Management",
+    "APP_URL": "https://fleet-flow-ohr9w0keu-g-innes-projects.vercel.app",
+    "APP_KEY": "base64:2MKeILbEfhqxkcRL7y+MENBjL0j9tAG6hv8wWxZfPvc=",
+    "DB_CONNECTION": "pgsql",
+    "DB_HOST": "ep-lively-tree-agqntlqb-pooler.c-2.eu-central-1.aws.neon.tech",
+    "DB_PORT": "5432",
+    "DB_DATABASE": "neondb",
+    "DB_USERNAME": "neondb_owner",
+    "DB_PASSWORD": "npg_dt8EQqvW9ONo",
+    "DB_SSLMODE": "require",
+    "SESSION_DRIVER": "database"
   }
 }
 
