@@ -21,6 +21,14 @@ class CategoryController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return Inertia::render('Categories/Create');
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -35,6 +43,16 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index')
             ->with('success', 'Category created successfully.');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Category $category)
+    {
+        return Inertia::render('Categories/Edit', [
+            'category' => $category
+        ]);
     }
 
     /**

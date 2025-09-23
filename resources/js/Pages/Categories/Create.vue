@@ -5,20 +5,9 @@ import { ref } from 'vue';
 
 const form = useForm({
     name: '',
-    color: '#f97316',
+    color: '#3B82F6',
     description: ''
 });
-
-const colorOptions = [
-    { value: '#f97316', label: 'Orange', class: 'bg-orange-500' },
-    { value: '#ef4444', label: 'Red', class: 'bg-red-500' },
-    { value: '#f59e0b', label: 'Yellow', class: 'bg-yellow-500' },
-    { value: '#10b981', label: 'Green', class: 'bg-green-500' },
-    { value: '#3b82f6', label: 'Blue', class: 'bg-blue-500' },
-    { value: '#8b5cf6', label: 'Purple', class: 'bg-purple-500' },
-    { value: '#ec4899', label: 'Pink', class: 'bg-pink-500' },
-    { value: '#6b7280', label: 'Gray', class: 'bg-gray-500' }
-];
 
 const submit = () => {
     form.post(route('categories.store'));
@@ -33,7 +22,7 @@ const submit = () => {
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-3xl font-bold text-fleet-text">Create New Category</h1>
-                    <p class="text-fleet-text-muted mt-1">Add a new category for organizing tasks</p>
+                    <p class="text-fleet-text-muted mt-1">Add a new category to organize your tasks</p>
                 </div>
                 <Link 
                     :href="route('categories.index')" 
@@ -57,53 +46,35 @@ const submit = () => {
                                 id="name"
                                 v-model="form.name"
                                 type="text"
-                                required
-                                class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text placeholder-fleet-text-muted focus:border-fleet-accent focus:ring-2 focus:ring-fleet-accent/20 focus:outline-none transition-all duration-200"
+                                class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text placeholder-fleet-text-muted focus:border-fleet-accent focus:ring-1 focus:ring-fleet-accent focus:outline-none transition-all duration-200"
                                 placeholder="Enter category name..."
+                                required
                             />
                             <div v-if="form.errors.name" class="mt-1 text-sm text-fleet-danger">
                                 {{ form.errors.name }}
                             </div>
                         </div>
 
-                        <!-- Color Selection -->
+                        <!-- Color -->
                         <div>
-                            <label class="block text-sm font-medium text-fleet-text mb-2">
-                                Category Color *
+                            <label for="color" class="block text-sm font-medium text-fleet-text mb-2">
+                                Color *
                             </label>
-                            <div class="grid grid-cols-4 gap-3">
-                                <label
-                                    v-for="color in colorOptions"
-                                    :key="color.value"
-                                    class="relative cursor-pointer"
-                                >
-                                    <input
-                                        v-model="form.color"
-                                        :value="color.value"
-                                        type="radio"
-                                        class="sr-only"
-                                    />
-                                    <div
-                                        :class="[
-                                            'w-full h-12 rounded-lg border-2 transition-all duration-200 hover:scale-105',
-                                            form.color === color.value 
-                                                ? 'border-fleet-accent ring-2 ring-fleet-accent/20' 
-                                                : 'border-fleet-accent/20 hover:border-fleet-accent/40'
-                                        ]"
-                                    >
-                                        <div 
-                                            :class="color.class"
-                                            class="w-full h-full rounded-lg flex items-center justify-center"
-                                        >
-                                            <div v-if="form.color === color.value" class="w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                                                <svg class="w-4 h-4 text-gray-800" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="text-xs text-fleet-text-muted text-center mt-1">{{ color.label }}</p>
-                                </label>
+                            <div class="flex items-center space-x-4">
+                                <input
+                                    id="color"
+                                    v-model="form.color"
+                                    type="color"
+                                    class="w-16 h-12 bg-fleet-dark border border-fleet-accent/20 rounded-lg cursor-pointer"
+                                    required
+                                />
+                                <input
+                                    v-model="form.color"
+                                    type="text"
+                                    class="flex-1 px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text placeholder-fleet-text-muted focus:border-fleet-accent focus:ring-1 focus:ring-fleet-accent focus:outline-none transition-all duration-200"
+                                    placeholder="#3B82F6"
+                                    pattern="^#[0-9A-Fa-f]{6}$"
+                                />
                             </div>
                             <div v-if="form.errors.color" class="mt-1 text-sm text-fleet-danger">
                                 {{ form.errors.color }}
@@ -118,39 +89,20 @@ const submit = () => {
                             <textarea
                                 id="description"
                                 v-model="form.description"
-                                rows="3"
-                                class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text placeholder-fleet-text-muted focus:border-fleet-accent focus:ring-2 focus:ring-fleet-accent/20 focus:outline-none transition-all duration-200 resize-none"
-                                placeholder="Enter category description (optional)..."
+                                rows="4"
+                                class="w-full px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text placeholder-fleet-text-muted focus:border-fleet-accent focus:ring-1 focus:ring-fleet-accent focus:outline-none transition-all duration-200 resize-none"
+                                placeholder="Enter category description..."
                             ></textarea>
                             <div v-if="form.errors.description" class="mt-1 text-sm text-fleet-danger">
                                 {{ form.errors.description }}
                             </div>
                         </div>
 
-                        <!-- Preview -->
-                        <div>
-                            <label class="block text-sm font-medium text-fleet-text mb-2">
-                                Preview
-                            </label>
-                            <div class="bg-fleet-dark border border-fleet-accent/20 rounded-lg p-4">
-                                <div class="flex items-center space-x-3">
-                                    <div 
-                                        class="w-4 h-4 rounded-full"
-                                        :style="{ backgroundColor: form.color }"
-                                    ></div>
-                                    <span class="text-fleet-text font-medium">{{ form.name || 'Category Name' }}</span>
-                                </div>
-                                <p v-if="form.description" class="text-fleet-text-muted text-sm mt-2">
-                                    {{ form.description }}
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Form Actions -->
-                        <div class="flex items-center justify-end space-x-4 pt-6 border-t border-fleet-accent/20">
+                        <!-- Submit Buttons -->
+                        <div class="flex items-center justify-end space-x-4 pt-6">
                             <Link 
                                 :href="route('categories.index')" 
-                                class="px-6 py-3 bg-fleet-dark border border-fleet-accent/20 text-fleet-text rounded-lg font-medium hover:bg-fleet-accent/10 hover:border-fleet-accent/40 transition-all duration-200"
+                                class="px-6 py-3 bg-fleet-darker border border-fleet-accent/20 text-fleet-text rounded-lg font-medium hover:bg-fleet-accent/10 hover:border-fleet-accent/40 transition-all duration-200"
                             >
                                 Cancel
                             </Link>
