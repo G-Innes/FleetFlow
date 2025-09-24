@@ -95,10 +95,9 @@
     .bg-fleet-logo {
         background-image: url('/logo.svg');
         background-repeat: no-repeat;
-        /* Make logo much larger - cover most of the right half */
-        background-size: 80% auto;
-        background-position: right center;
-        /* Ensure it covers full height */
+        background-size: 100% 100%;
+        background-position: calc(100% + 60vh) center;
         min-height: 100vh;
+        background-blend-mode: soft-light;
     }
 }

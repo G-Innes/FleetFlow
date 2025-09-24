@@ -4,6 +4,7 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
+        "build-prod": "vite build && cp public/build/.vite/manifest.json public/build/manifest.json",
         "dev": "vite"
     },
     "devDependencies": {
