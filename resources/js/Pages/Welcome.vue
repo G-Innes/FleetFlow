@@ -117,7 +117,7 @@ function handleImageError() {
                             <h3 class="text-xl font-semibold text-fleet-text mb-2">Categories</h3>
                             <p class="text-fleet-text-muted">
                                 Organize tasks by fleet operations: maintenance, inspections, driver tasks, and more.
-                            </p>
+                                </p>
                             </div>
                             </div>
 
@@ -131,7 +131,7 @@ function handleImageError() {
                             <h3 class="text-xl font-semibold text-fleet-text mb-2">Due Date Tracking</h3>
                             <p class="text-fleet-text-muted">
                                 Never miss critical deadlines with intelligent due date highlighting and SLA tracking.
-                            </p>
+                                </p>
                             </div>
                         </div>
                             </div>

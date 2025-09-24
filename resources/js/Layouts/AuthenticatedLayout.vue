@@ -218,7 +218,7 @@ const showingNavigationDropdown = ref(false);
             </header>
 
             <!-- Page Content -->
-            <main class="bg-fleet-dark min-h-screen">
+            <main class="bg-fleet-dark min-h-screen bg-fleet-logo">
                 <slot />
             </main>
         </div>
