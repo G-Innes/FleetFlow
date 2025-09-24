@@ -189,11 +189,10 @@ const clearFilters = () => {
 
                 <!-- Tasks Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div
-                        v-for="task in filteredTasks"
-                        :key="task.id"
-                        class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 hover:border-fleet-accent/40 transition-all duration-300 hover:shadow-lg hover:shadow-fleet-accent/10 group"
-                    >
+                    <div class="glow-wrap" @mousemove="(e)=>{const r=e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--gx', `${e.clientX-r.left}px`); e.currentTarget.style.setProperty('--gy', `${e.clientY-r.top}px`) }" v-for="task in filteredTasks" :key="task.id">
+                        <div
+                            class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 hover:border-fleet-accent/40 transition-all duration-300 glow-follow group"
+                        >
                         <!-- Task Header -->
                         <div class="flex items-start justify-between mb-4">
                             <div class="flex-1">
@@ -287,6 +286,7 @@ const clearFilters = () => {
                             <div class="text-xs text-fleet-text-muted">
                                 ID: {{ task.id }}
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>

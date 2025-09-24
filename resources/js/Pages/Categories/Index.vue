@@ -27,7 +27,7 @@ const deleteCategory = (category) => {
                 <div class="flex space-x-3">
                     <Link 
                         :href="route('tasks.index')" 
-                        class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-fleet-accent/10"
+                    class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:opacity-90"
                     >
                         ← Back to Tasks
                     </Link>
@@ -45,11 +45,11 @@ const deleteCategory = (category) => {
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <!-- Categories Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div
+                    <div class="glow-wrap" @mousemove="(e)=>{const r=e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--gx', `${e.clientX-r.left}px`); e.currentTarget.style.setProperty('--gy', `${e.clientY-r.top}px`) }"
                         v-for="category in categories"
                         :key="category.id"
-                        class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 hover:border-fleet-accent/40 transition-all duration-300 hover:shadow-lg hover:shadow-fleet-accent/10 group"
                     >
+                        <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 hover:border-fleet-accent/40 transition-all duration-300 glow-follow group">
                         <!-- Category Header -->
                         <div class="flex items-start justify-between mb-4">
                             <div class="flex items-center space-x-3">
@@ -112,6 +112,7 @@ const deleteCategory = (category) => {
                             <div class="text-xs text-fleet-text-muted">
                                 ID: {{ category.id }}
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>

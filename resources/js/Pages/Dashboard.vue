@@ -47,7 +47,7 @@ const completionRate = computed(() => {
                 <div class="flex space-x-3">
                     <Link 
                         :href="route('tasks.create')" 
-                        class="bg-fleet-accent hover:bg-fleet-accent-light text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-fleet-accent/25"
+                        class="bg-fleet-gradient hover:opacity-90 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-orange-500/25"
                     >
                         + New Task
                     </Link>
@@ -66,8 +66,8 @@ const completionRate = computed(() => {
                                       <p class="text-fleet-text-muted text-sm font-medium">Total Tasks</p>
                                       <p class="text-3xl font-bold text-fleet-text">{{ props.stats?.totalTasks || 0 }}</p>
                                   </div>
-                            <div class="w-12 h-12 bg-fleet-accent/10 rounded-lg flex items-center justify-center">
-                                <svg class="w-6 h-6 text-fleet-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-fleet-dark border border-fleet-accent/20">
+                                <svg class="w-6 h-6 text-fleet-gradient" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                                 </svg>
                             </div>
@@ -127,50 +127,53 @@ const completionRate = computed(() => {
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Quick Actions -->
                     <div class="lg:col-span-1">
-                        <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6">
+                    <div class="glow-wrap" @mousemove="(e)=>{const r=e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--gx', `${e.clientX-r.left}px`); e.currentTarget.style.setProperty('--gy', `${e.clientY-r.top}px`) }">
+                        <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 glow-follow">
                             <h3 class="text-xl font-semibold text-fleet-text mb-4">Quick Actions</h3>
                             <div class="space-y-3">
                                 <Link 
                                     :href="route('tasks.index')" 
-                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:bg-fleet-accent/10 transition-all duration-200 group"
+                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
                                 >
-                                    <svg class="w-5 h-5 text-fleet-accent mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                                     </svg>
-                                    <span class="text-fleet-text group-hover:text-fleet-accent transition-colors">View All Tasks</span>
+                                    <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">View All Tasks</span>
                                 </Link>
                                 
                                 <Link 
                                     :href="route('categories.index')" 
-                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:bg-fleet-accent/10 transition-all duration-200 group"
+                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
                                 >
-                                    <svg class="w-5 h-5 text-fleet-accent mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                                     </svg>
-                                    <span class="text-fleet-text group-hover:text-fleet-accent transition-colors">Manage Categories</span>
+                                    <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Manage Categories</span>
                                 </Link>
                                 
                                 <Link 
                                     :href="route('tasks.export')" 
-                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:bg-fleet-accent/10 transition-all duration-200 group"
+                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
                                 >
-                                    <svg class="w-5 h-5 text-fleet-accent mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                     </svg>
-                                    <span class="text-fleet-text group-hover:text-fleet-accent transition-colors">Export Tasks</span>
+                                    <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Export Tasks</span>
                                 </Link>
                             </div>
+                        </div>
                         </div>
                     </div>
 
                     <!-- Recent Tasks -->
                     <div class="lg:col-span-2">
-                        <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6">
+                    <div class="glow-wrap" @mousemove="(e)=>{const r=e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--gx', `${e.clientX-r.left}px`); e.currentTarget.style.setProperty('--gy', `${e.clientY-r.top}px`) }">
+                        <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 glow-follow">
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-xl font-semibold text-fleet-text">Recent Tasks</h3>
                                 <Link 
                                     :href="route('tasks.index')" 
-                                    class="text-fleet-accent hover:text-fleet-accent-light text-sm font-medium transition-colors"
+                                    class="text-fleet-gradient hover:opacity-90 text-sm font-medium transition-colors"
                                 >
                                     View All
                                 </Link>
@@ -182,7 +185,7 @@ const completionRate = computed(() => {
                                           class="flex items-center justify-between p-4 bg-fleet-dark/30 rounded-lg border border-fleet-accent/10 hover:border-fleet-accent/30 transition-all duration-200"
                                       >
                                           <div class="flex items-center space-x-3">
-                                              <div class="w-2 h-2 rounded-full bg-fleet-accent"></div>
+                                              <div class="w-2 h-2 rounded-full bg-fleet-gradient"></div>
                                               <div>
                                                   <p class="text-fleet-text font-medium">{{ task.title }}</p>
                                                   <p class="text-fleet-text-muted text-sm">{{ task.category }}</p>
@@ -204,6 +207,7 @@ const completionRate = computed(() => {
                                           </div>
                                       </div>
                                   </div>
+                        </div>
                         </div>
                     </div>
                 </div>

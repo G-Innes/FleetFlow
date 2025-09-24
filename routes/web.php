@@ -23,21 +23,6 @@ Route::get('/', function () {
     ]);
 });
 
-// Simple test route to check if the app is working
-Route::get('/test', function () {
-    return response()->json([
-        'status' => 'ok',
-        'database' => config('database.default'),
-        'app_env' => config('app.env'),
-        'app_debug' => config('app.debug')
-    ]);
-});
-
-// Ultra-simple test route without any Laravel features
-Route::get('/simple', function () {
-    return 'Hello World - PHP is working!';
-});
-
 Route::get('/dashboard', function () {
     /** @var User $user */
     $user = Auth::user();

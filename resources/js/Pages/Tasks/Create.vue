@@ -32,7 +32,7 @@ const submit = () => {
                 </div>
                 <Link 
                     :href="route('tasks.index')" 
-                    class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-fleet-accent/10"
+                    class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:opacity-90"
                 >
                     ← Back to Tasks
                 </Link>

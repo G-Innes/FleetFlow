@@ -160,14 +160,14 @@ const submit = () => {
                         <div class="flex items-center justify-end space-x-4 pt-6">
                             <Link 
                                 :href="route('tasks.index')" 
-                                class="px-6 py-3 bg-fleet-darker border border-fleet-accent/20 text-fleet-text rounded-lg font-medium hover:bg-fleet-accent/10 hover:border-fleet-accent/40 transition-all duration-200"
+                                class="px-6 py-3 bg-fleet-darker border border-fleet-accent/20 text-fleet-text rounded-lg font-medium hover:opacity-90 hover:border-fleet-accent/40 transition-all duration-200"
                             >
                                 Cancel
                             </Link>
                             <button
                                 type="submit"
                                 :disabled="form.processing"
-                                class="px-6 py-3 bg-fleet-accent hover:bg-fleet-accent-light text-white rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-fleet-accent/25 disabled:opacity-50 disabled:cursor-not-allowed"
+                                class="px-6 py-3 bg-fleet-gradient hover:opacity-90 text-white rounded-lg font-medium transition-all duration-200 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <span v-if="form.processing">Updating...</span>
                                 <span v-else>Update Task</span>

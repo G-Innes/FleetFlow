@@ -1,3 +1,93 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* FleetFlow Brand Gradient Utilities */
+@layer utilities {
+    /* Wrapper-based glow so the shadow sits behind the card element */
+    .glow-wrap { position: relative; }
+    .glow-wrap::before {
+        content: "";
+        position: absolute;
+        inset: -18px;
+        border-radius: 20px; /* matches large rounded cards */
+        pointer-events: none;
+        background: radial-gradient(240px 240px at var(--gx, 50%) var(--gy, 50%), rgba(255,140,0,0.25), rgba(255,140,0,0) 60%);
+        filter: blur(18px);
+        opacity: 0;
+        transition: opacity .18s ease;
+        z-index: 0;
+    }
+    .glow-wrap:hover::before { opacity: 1; }
+
+    .bg-fleet-gradient {
+        background: linear-gradient(90deg, #FF6B35 0%, #FF8C00 30%, #FFA500 70%, #FFD700 100%);
+    }
+    
+    .text-fleet-gradient {
+        background: linear-gradient(90deg, #FF6B35 0%, #FF8C00 30%, #FFA500 70%, #FFD700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .border-fleet-gradient {
+        border-image: linear-gradient(90deg, #FF6B35 0%, #FF8C00 30%, #FFA500 70%, #FFD700 100%) 1;
+    }
+    
+    .hover\:bg-fleet-gradient:hover {
+        background: linear-gradient(90deg, #FF6B35 0%, #FF8C00 30%, #FFA500 70%, #FFD700 100%);
+    }
+    
+    .hover\:text-fleet-gradient:hover {
+        background: linear-gradient(90deg, #FF6B35 0%, #FF8C00 30%, #FFA500 70%, #FFD700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Cursor-follow orange glow for cards */
+    .glow-follow {
+        position: relative;
+        overflow: visible;
+        isolation: isolate; /* keep glow stacking within card */
+    }
+    /* soft shadow behind the card, follows cursor */
+    .glow-follow::before {
+        content: "";
+        position: absolute;
+        inset: -14px; /* extend outside to look like outside shadow */
+        border-radius: inherit;
+        pointer-events: none;
+        background: radial-gradient(220px 220px at var(--gx, 50%) var(--gy, 50%), rgba(255,140,0,0.25), rgba(255,140,0,0) 60%);
+        filter: blur(14px);
+        opacity: 0;
+        transition: opacity .18s ease;
+        z-index: -1; /* always behind card */
+        /* Exclude the element box so glow is outside only */
+        -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+    }
+    .glow-follow::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        padding: 1px; /* thickness of the glowing border */
+        background: radial-gradient(180px 180px at var(--gx, 50%) var(--gy, 50%), rgba(255,140,0,0.55), rgba(255,140,0,0) 60%);
+        /* Mask the center so only the border ring glows */
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+        opacity: 0;
+        transition: opacity .18s ease;
+        z-index: 1; /* sits above background but masked to border only */
+    }
+    .glow-follow:hover::before,
+    .glow-follow:hover::after {
+        opacity: 1;
+    }
+    .glow-follow:hover { border-color: rgba(255,140,0,0.6) !important; }
+}
