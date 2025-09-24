@@ -18,10 +18,11 @@ createInertiaApp({
         return importer();
     },
     setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .provide("route", ziggyRoute)
-            .mount(el);
+        const app = createApp({ render: () => h(App, props) })
+            .use(plugin);
+        // Expose Ziggy's route() globally so templates using route('...') work
+        window.route = ziggyRoute;
+        return app.mount(el);
     },
     progress: {
         color: "#4B5563",
