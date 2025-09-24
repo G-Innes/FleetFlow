@@ -14,18 +14,30 @@ class TaskExportController extends Controller
      */
     public function export(Request $request)
     {
+        $dueSoon = filter_var($request->input('due_soon', false), FILTER_VALIDATE_BOOLEAN);
+
         $tasks = Task::with('category')
             ->where('user_id', Auth::id())
+            ->when($request->filled('category'), fn($q) => $q->where('category_id', (int) $request->category))
+            ->when($request->status === 'completed', fn($q) => $q->where('is_completed', true))
+            ->when($request->status === 'pending', fn($q) => $q->where('is_completed', false))
+            ->when($request->filled('priority') && in_array((int)$request->priority, [1,2,3], true), fn($q) => $q->where('priority', (int)$request->priority))
+            ->when($dueSoon, fn($q) => $q->where('due_date', '<=', now()->addDays(3))->where('due_date', '>=', now())->where('is_completed', false))
+            ->orderBy('due_date', 'asc')
+            ->orderBy('priority', 'desc')
             ->get()
             ->map(function ($task) {
                 return [
+                    'ID' => $task->id,
                     'Title' => $task->title,
                     'Description' => $task->description,
                     'Category' => $task->category?->name ?? 'No Category',
+                    'Category Color' => $task->category?->color ?? '',
                     'Due Date' => $task->due_date?->format('Y-m-d H:i') ?? 'No Due Date',
                     'Status' => $task->is_completed ? 'Completed' : 'Pending',
                     'Priority' => $task->priority_label,
                     'Created' => $task->created_at->format('Y-m-d H:i'),
+                    'Updated' => $task->updated_at->format('Y-m-d H:i'),
                 ];
             });
 

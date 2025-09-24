@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TaskExportController;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -85,6 +86,8 @@ Route::get('/dashboard', function () {
         'recentTasks' => $recentTasks->toArray()
     ]);
     
+    $categories = Category::all();
+
     return Inertia::render('Dashboard', [
         'stats' => [
             'totalTasks' => $totalTasks,
@@ -93,7 +96,8 @@ Route::get('/dashboard', function () {
             'overdue' => $overdue
         ],
         'recentTasks' => $recentTasks,
-        'dueSoonTasks' => $dueSoonTasks
+        'dueSoonTasks' => $dueSoonTasks,
+        'categories' => $categories
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

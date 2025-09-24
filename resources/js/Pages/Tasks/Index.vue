@@ -1,7 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, useForm } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
+import Modal from '@/Components/Modal.vue';
 
 const props = defineProps({
     tasks: Object,
@@ -13,6 +14,26 @@ const categoryFilter = ref(props.filters.category || '');
 const statusFilter = ref(props.filters.status || '');
 const priorityFilter = ref(props.filters.priority || '');
 const dueSoonFilter = ref(Boolean(props.filters.due_soon) || false);
+const showImport = ref(false);
+const importForm = useForm({ csv_file: null });
+
+const onFileChange = (e) => {
+    const files = e.target.files;
+    if (files && files[0]) {
+        importForm.csv_file = files[0];
+    }
+};
+
+const submitImport = () => {
+    if (!importForm.csv_file) return;
+    importForm.post(route('tasks.import'), {
+        preserveScroll: true,
+        onSuccess: () => {
+            showImport.value = false;
+            importForm.reset('csv_file');
+        },
+    });
+};
 
 const filteredTasks = computed(() => {
     return props.tasks.data;
@@ -100,8 +121,20 @@ const clearFilters = () => {
                     <p class="text-fleet-text-muted mt-1">Manage your fleet operations tasks</p>
                 </div>
                 <div class="flex space-x-3">
+                    <button 
+                        type="button"
+                        @click="showImport = true"
+                        class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-fleet-accent/10"
+                    >
+                        Import CSV
+                    </button>
                     <Link 
-                        :href="route('tasks.export')" 
+                        :href="route('tasks.export', { 
+                            category: categoryFilter || undefined,
+                            status: statusFilter || undefined,
+                            priority: priorityFilter || undefined,
+                            due_soon: dueSoonFilter || undefined
+                        })" 
                         class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-fleet-accent/10"
                     >
                         Export CSV
@@ -331,4 +364,17 @@ const clearFilters = () => {
             </div>
         </div>
     </AuthenticatedLayout>
+
+    <!-- Import Modal -->
+    <Modal :show="showImport" @close="showImport = false">
+        <div class="bg-fleet-darker border border-fleet-accent/20 px-6 py-6">
+            <h3 class="text-xl font-semibold text-fleet-text mb-4">Import Tasks (CSV)</h3>
+            <p class="text-fleet-text-muted text-sm mb-4">Upload a CSV with headers: Title, Description, Category, Due Date, Status, Priority.</p>
+            <input type="file" accept=".csv,text/csv" @change="onFileChange" class="w-full text-fleet-text" />
+            <div class="mt-6 flex justify-end space-x-3">
+                <button @click="showImport = false" class="px-4 py-2 bg-fleet-darker border border-fleet-accent/20 text-fleet-text rounded-lg hover:opacity-90">Cancel</button>
+                <button @click="submitImport" :disabled="importForm.processing || !importForm.csv_file" class="px-4 py-2 bg-fleet-gradient text-white rounded-lg hover:opacity-90 disabled:opacity-50">Import</button>
+            </div>
+        </div>
+    </Modal>
 </template>
