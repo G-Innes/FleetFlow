@@ -12,7 +12,7 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <div class="min-h-screen bg-fleet-dark">
+        <div class="min-h-screen bg-fleet-dark bg-fleet-logo">
             <nav
                 class="border-b border-fleet-accent/20 bg-fleet-darker/50 backdrop-blur-sm relative z-40"
             >

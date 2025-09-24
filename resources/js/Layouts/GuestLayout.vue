@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <div class="flex min-h-screen flex-col items-center bg-fleet-dark pt-6 sm:justify-center sm:pt-0">
+    <div class="flex min-h-screen flex-col items-center bg-fleet-dark bg-fleet-logo pt-6 sm:justify-center sm:pt-0">
         <div class="flex items-center space-x-2">
             <Link href="/" class="flex items-center">
                 <img src="/logo.svg" alt="FleetFlow" class="w-12 h-12" />
