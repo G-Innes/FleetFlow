@@ -33,9 +33,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $palette = ['#EF4444', '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6', '#F97316'];
         $request->validate([
             'name' => 'required|string|max:255|unique:categories,name',
-            'color' => 'required|string|regex:/^#[0-9A-Fa-f]{6}$/',
+            'color' => ['required','string', function($attr,$value,$fail) use ($palette){ if(!in_array($value,$palette,true)){ $fail('Invalid color selection.'); } }],
             'description' => 'nullable|string'
         ]);
 
@@ -60,9 +61,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $palette = ['#EF4444', '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6', '#F97316'];
         $request->validate([
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
-            'color' => 'required|string|regex:/^#[0-9A-Fa-f]{6}$/',
+            'color' => ['required','string', function($attr,$value,$fail) use ($palette){ if(!in_array($value,$palette,true)){ $fail('Invalid color selection.'); } }],
             'description' => 'nullable|string'
         ]);
 

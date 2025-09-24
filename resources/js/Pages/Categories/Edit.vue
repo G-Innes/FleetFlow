@@ -7,6 +7,8 @@ const props = defineProps({
     category: Object
 });
 
+const palette = ['#EF4444', '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6', '#F97316'];
+
 const form = useForm({
     name: props.category.name,
     color: props.category.color,
@@ -61,26 +63,22 @@ const submit = () => {
 
                         <!-- Color -->
                         <div>
-                            <label for="color" class="block text-sm font-medium text-fleet-text mb-2">
+                            <label class="block text-sm font-medium text-fleet-text mb-2">
                                 Color *
                             </label>
-                            <div class="flex items-center space-x-4">
-                                <input
-                                    id="color"
-                                    v-model="form.color"
-                                    type="color"
-                                    class="w-16 h-12 bg-fleet-dark border border-fleet-accent/20 rounded-lg cursor-pointer"
-                                    required
-                                />
-                                <input
-                                    v-model="form.color"
-                                    type="text"
-                                    class="flex-1 px-4 py-3 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text placeholder-fleet-text-muted focus:border-fleet-accent focus:ring-1 focus:ring-fleet-accent focus:outline-none transition-all duration-200"
-                                    placeholder="#3B82F6"
-                                    pattern="^#[0-9A-Fa-f]{6}$"
+                            <div class="flex items-center flex-wrap gap-3">
+                                <button
+                                    v-for="c in palette"
+                                    :key="c"
+                                    type="button"
+                                    @click="form.color = c"
+                                    class="w-10 h-10 rounded-full border transition-all"
+                                    :style="{ backgroundColor: c }"
+                                    :class="form.color === c ? 'ring-2 ring-fleet-accent border-white' : 'border-fleet-accent/30'"
+                                    aria-label="Select color"
                                 />
                             </div>
-                            <div v-if="form.errors.color" class="mt-1 text-sm text-fleet-danger">
+                            <div v-if="form.errors.color" class="mt-2 text-sm text-fleet-danger">
                                 {{ form.errors.color }}
                             </div>
                         </div>
