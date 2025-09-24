@@ -96,6 +96,7 @@
         background-image: url('/logo.svg');
         background-repeat: no-repeat;
         background-size: auto 100%;
-        background-position: right center;
+        /* Anchor toward the right half, offset further to the edge */
+        background-position: right -10% center;
     }
 }
