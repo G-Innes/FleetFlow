@@ -34,7 +34,7 @@ function handleImageError() {
                 <header class="flex items-center justify-between py-10">
                     <div class="flex items-center space-x-0">
                         <img src="/logo.svg" alt="FleetFlow" class="w-24 h-24" />
-                        <span class="text-1xl font-bold text-fleet-text">FleetFlow</span>
+                        <span class="text-2xl font-bold text-fleet-text">FleetFlow</span>
                     </div>
                     <nav v-if="canLogin" class="flex items-center gap-3">
                         <Link

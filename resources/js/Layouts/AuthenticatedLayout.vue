@@ -22,13 +22,9 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')" class="flex items-center space-x-3">
-                                    <div class="w-8 h-8 rounded-lg flex items-center justify-center bg-fleet-dark border border-fleet-accent/20">
-                                        <svg class="w-5 h-5 text-fleet-gradient" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
-                                        </svg>
-                                    </div>
-                                    <span class="text-xl font-bold text-fleet-text">Fleet Fox</span>
+                                <Link :href="route('dashboard')" class="flex items-center">
+                                    <img src="/logo.svg" alt="FleetFlow" class="w-8 h-8" />
+                                    <span class="ml-2 text-xl font-bold text-fleet-text">FleetFlow</span>
                                 </Link>
                             </div>
 
