@@ -45,7 +45,7 @@ const completionRate = computed(() => {
         <template #header>
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-fleet-text">Fleet Fox Dashboard</h1>
+                    <h1 class="text-3xl font-bold text-fleet-text">FleetFlow Dashboard</h1>
                     <p class="text-fleet-text-muted mt-1">Manage your fleet operations efficiently</p>
                 </div>
                 <div class="flex space-x-3">
