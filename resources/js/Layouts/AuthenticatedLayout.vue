@@ -14,7 +14,7 @@ const showingNavigationDropdown = ref(false);
     <div>
         <div class="min-h-screen bg-fleet-dark">
             <nav
-                class="border-b border-fleet-accent/20 bg-fleet-darker/50 backdrop-blur-sm"
+                class="border-b border-fleet-accent/20 bg-fleet-darker/50 backdrop-blur-sm relative z-40"
             >
                 <!-- Primary Navigation Menu -->
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
