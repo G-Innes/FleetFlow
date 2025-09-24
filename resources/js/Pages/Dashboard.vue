@@ -94,7 +94,7 @@ const submitDashImport = () => {
             </div>
         </template>
 
-        <div class="py-8">
+        <div class="py-8 bg-fleet-logo">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <!-- Stats Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -249,6 +249,11 @@ const submitDashImport = () => {
                                                   {{ task.priority }}
                                               </span>
                                               <span class="text-fleet-text-muted text-sm">{{ task.due }}</span>
+                                              <div v-if="task.completed" class="w-5 h-5 bg-fleet-success rounded-full flex items-center justify-center">
+                                                  <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                  </svg>
+                                              </div>
                                           </div>
                                       </Link>
                                   </div>

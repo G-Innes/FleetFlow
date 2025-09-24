@@ -41,7 +41,7 @@ const deleteCategory = (category) => {
             </div>
         </template>
 
-        <div class="py-8">
+        <div class="py-8 bg-fleet-logo">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <!-- Categories Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

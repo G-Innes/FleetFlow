@@ -90,4 +90,12 @@
         opacity: 1;
     }
     .glow-follow:hover { border-color: rgba(255,140,0,0.6) !important; }
-} 
+
+    /* Background logo utility: position logo on right side */
+    .bg-fleet-logo {
+        background-image: url('/logo.svg');
+        background-repeat: no-repeat;
+        background-size: 320px auto;
+        background-position: right 15% center;
+    }
+}
