@@ -3,7 +3,7 @@ import "./bootstrap";
 
 import { createInertiaApp } from "@inertiajs/vue3";
 import { createApp, h } from "vue";
-import ziggyRoute from "ziggy-js";
+import ziggyRoute from "ziggy";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -20,7 +20,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
-            .provide('route', ziggyRoute)
+            .provide("route", ziggyRoute)
             .mount(el);
     },
     progress: {

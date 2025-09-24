@@ -16,6 +16,7 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": resolve(__dirname, "resources/js"),
+            ziggy: resolve(__dirname, "node_modules/ziggy-js"),
         },
     },
     build: {
