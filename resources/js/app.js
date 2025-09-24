@@ -18,10 +18,13 @@ createInertiaApp({
         return importer();
     },
     setup({ el, App, props, plugin }) {
-        const app = createApp({ render: () => h(App, props) })
-            .use(plugin);
-        // Expose Ziggy's route() globally so templates using route('...') work
-        window.route = ziggyRoute;
+        const app = createApp({ render: () => h(App, props) }).use(plugin);
+        // Make route() available in Vue templates (this.route / route in templates)
+        app.config.globalProperties.route = (name, params, absolute) =>
+            ziggyRoute(name, params, absolute, window.Ziggy);
+        app.provide("route", app.config.globalProperties.route);
+        // Also expose on window for any non-Vue usage
+        window.route = app.config.globalProperties.route;
         return app.mount(el);
     },
     progress: {
