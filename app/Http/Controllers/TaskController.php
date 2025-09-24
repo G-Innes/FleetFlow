@@ -144,7 +144,7 @@ class TaskController extends Controller
     /**
      * Toggle task completion status
      */
-    public function toggle(Task $task)
+    public function toggle(Request $request, Task $task)
     {
         // Ensure user can only toggle their own tasks
         if ($task->user_id !== Auth::id()) {
@@ -153,9 +153,15 @@ class TaskController extends Controller
 
         $task->update(['is_completed' => !$task->is_completed]);
 
+        // For Inertia visits, return a redirect (not JSON)
+        if ($request->header('X-Inertia')) {
+            return redirect()->back(303);
+        }
+
+        // Fallback for plain API/XHR usage
         return response()->json([
             'success' => true,
-            'is_completed' => $task->is_completed
+            'is_completed' => $task->is_completed,
         ]);
     }
 }
