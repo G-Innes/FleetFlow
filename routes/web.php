@@ -53,6 +53,27 @@ Route::get('/dashboard', function () {
                 'is_due_soon' => $task->is_due_soon
             ];
         });
+
+    // Get due soon tasks (next 3 days, not completed)
+    $dueSoonTasks = $user->tasks()
+        ->with('category')
+        ->where('due_date', '<=', now()->addDays(3))
+        ->where('due_date', '>=', now())
+        ->where('is_completed', false)
+        ->orderBy('due_date', 'asc')
+        ->limit(5)
+        ->get()
+        ->map(function ($task) {
+            return [
+                'id' => $task->id,
+                'title' => $task->title,
+                'category' => $task->category?->name ?? 'No Category',
+                'due' => $task->due_date ? $task->due_date->diffForHumans() : 'No due date',
+                'priority' => $task->priority_label,
+                'completed' => $task->is_completed,
+                'is_due_soon' => $task->is_due_soon
+            ];
+        });
     
     // Debug: Log the data to see what's being passed
     Log::info('Dashboard Data:', [
@@ -71,7 +92,8 @@ Route::get('/dashboard', function () {
             'dueSoon' => $dueSoon,
             'overdue' => $overdue
         ],
-        'recentTasks' => $recentTasks
+        'recentTasks' => $recentTasks,
+        'dueSoonTasks' => $dueSoonTasks
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

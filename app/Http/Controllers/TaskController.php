@@ -40,7 +40,10 @@ class TaskController extends Controller
         return Inertia::render('Tasks/Index', [
             'tasks' => $tasks,
             'categories' => $categories,
-            'filters' => $request->only(['category', 'status', 'priority'])
+            'filters' => array_merge(
+                $request->only(['category', 'status', 'priority']),
+                ['due_soon' => $dueSoon]
+            )
         ]);
     }
 

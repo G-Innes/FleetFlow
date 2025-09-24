@@ -16,6 +16,10 @@ const props = defineProps({
     recentTasks: {
         type: Array,
         default: () => []
+    },
+    dueSoonTasks: {
+        type: Array,
+        default: () => []
     }
 });
 
@@ -123,7 +127,7 @@ const completionRate = computed(() => {
                     </div>
                 </div>
 
-                <!-- Quick Actions & Recent Tasks -->
+                <!-- Quick Actions & Task Lists -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Quick Actions -->
                     <div class="lg:col-span-1">
@@ -165,23 +169,24 @@ const completionRate = computed(() => {
                         </div>
                     </div>
 
-                    <!-- Recent Tasks -->
+                    <!-- Due Soon Tasks -->
                     <div class="lg:col-span-2">
                     <div class="glow-wrap" @mousemove="(e)=>{const r=e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--gx', `${e.clientX-r.left}px`); e.currentTarget.style.setProperty('--gy', `${e.clientY-r.top}px`) }">
                         <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 glow-follow">
                             <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-xl font-semibold text-fleet-text">Recent Tasks</h3>
+                                <h3 class="text-xl font-semibold text-fleet-text">Due Soon</h3>
                                 <Link 
-                                    :href="route('tasks.index')" 
+                                    :href="route('tasks.index', { due_soon: true })" 
                                     class="text-fleet-gradient hover:opacity-90 text-sm font-medium transition-colors"
                                 >
                                     View All
                                 </Link>
                             </div>
                                   <div class="space-y-3">
-                                      <div 
-                                          v-for="task in (props.recentTasks || [])" 
+                                      <Link 
+                                          v-for="task in (props.dueSoonTasks || [])" 
                                           :key="task.id"
+                                          :href="route('tasks.edit', task.id)"
                                           class="flex items-center justify-between p-4 bg-fleet-dark/30 rounded-lg border border-fleet-accent/10 hover:border-fleet-accent/30 transition-all duration-200"
                                       >
                                           <div class="flex items-center space-x-3">
@@ -199,13 +204,50 @@ const completionRate = computed(() => {
                                                   {{ task.priority }}
                                               </span>
                                               <span class="text-fleet-text-muted text-sm">{{ task.due }}</span>
-                                              <div v-if="task.completed" class="w-5 h-5 bg-fleet-success rounded-full flex items-center justify-center">
-                                                  <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                                  </svg>
+                                          </div>
+                                      </Link>
+                                  </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Tasks (moved below Due Soon) -->
+                    <div class="lg:col-span-2">
+                    <div class="glow-wrap" @mousemove="(e)=>{const r=e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--gx', `${e.clientX-r.left}px`); e.currentTarget.style.setProperty('--gy', `${e.clientY-r.top}px`) }">
+                        <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 glow-follow">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-xl font-semibold text-fleet-text">Recent Tasks</h3>
+                                <Link 
+                                    :href="route('tasks.index')" 
+                                    class="text-fleet-gradient hover:opacity-90 text-sm font-medium transition-colors"
+                                >
+                                    View All
+                                </Link>
+                            </div>
+                                  <div class="space-y-3">
+                                      <Link 
+                                          v-for="task in (props.recentTasks || [])" 
+                                          :key="task.id"
+                                          :href="route('tasks.edit', task.id)"
+                                          class="flex items-center justify-between p-4 bg-fleet-dark/30 rounded-lg border border-fleet-accent/10 hover:border-fleet-accent/30 transition-all duration-200"
+                                      >
+                                          <div class="flex items-center space-x-3">
+                                              <div class="w-2 h-2 rounded-full bg-fleet-gradient"></div>
+                                              <div>
+                                                  <p class="text-fleet-text font-medium">{{ task.title }}</p>
+                                                  <p class="text-fleet-text-muted text-sm">{{ task.category }}</p>
                                               </div>
                                           </div>
-                                      </div>
+                                          <div class="flex items-center space-x-3">
+                                              <span 
+                                                  :class="getPriorityColor(task.priority)"
+                                                  class="px-2 py-1 rounded-full text-xs font-medium border"
+                                              >
+                                                  {{ task.priority }}
+                                              </span>
+                                              <span class="text-fleet-text-muted text-sm">{{ task.due }}</span>
+                                          </div>
+                                      </Link>
                                   </div>
                         </div>
                         </div>

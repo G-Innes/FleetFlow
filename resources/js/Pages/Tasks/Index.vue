@@ -12,6 +12,7 @@ const props = defineProps({
 const categoryFilter = ref(props.filters.category || '');
 const statusFilter = ref(props.filters.status || '');
 const priorityFilter = ref(props.filters.priority || '');
+const dueSoonFilter = ref(Boolean(props.filters.due_soon) || false);
 
 const filteredTasks = computed(() => {
     return props.tasks.data;
@@ -71,7 +72,8 @@ const applyFilters = () => {
     router.get(route('tasks.index'), {
         category: categoryFilter.value,
         status: statusFilter.value,
-        priority: priorityFilter.value
+        priority: priorityFilter.value,
+        due_soon: dueSoonFilter.value
     }, {
         preserveState: true,
         replace: true
@@ -82,6 +84,7 @@ const clearFilters = () => {
     categoryFilter.value = '';
     statusFilter.value = '';
     priorityFilter.value = '';
+    dueSoonFilter.value = false;
     applyFilters();
 };
 </script>
@@ -160,6 +163,19 @@ const clearFilters = () => {
                                 <option value="2">Medium</option>
                                 <option value="1">Low</option>
                             </select>
+                        </div>
+
+                        <!-- Due Soon Filter -->
+                        <div class="flex items-end">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input
+                                    v-model="dueSoonFilter"
+                                    type="checkbox"
+                                    class="w-4 h-4 text-fleet-accent bg-fleet-dark border-fleet-accent/20 rounded focus:ring-fleet-accent/20 focus:ring-2"
+                                    @change="applyFilters"
+                                />
+                                <span class="text-sm font-medium text-fleet-text">Due Soon</span>
+                            </label>
                         </div>
                     </div>
 
