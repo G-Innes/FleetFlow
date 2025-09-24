@@ -95,8 +95,8 @@
     .bg-fleet-logo {
         background-image: url('/logo.svg');
         background-repeat: no-repeat;
-        background-size: auto 100%;
-        /* Anchor toward the right half, offset further to the edge */
-        background-position: right -10% center;
+        /* occupy right half */
+        background-size: 50% auto;
+        background-position: right center;
     }
 }
