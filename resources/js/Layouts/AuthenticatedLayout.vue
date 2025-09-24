@@ -24,7 +24,7 @@ const showingNavigationDropdown = ref(false);
                             <div class="flex shrink-0 items-center">
                                 <Link :href="route('dashboard')" class="flex items-center">
                                     <img src="/logo.svg" alt="FleetFlow" class="w-8 h-8" />
-                                    <span class="ml-2 text-xl font-bold text-fleet-text">FleetFlow</span>
+                                    <span class="ml-2 text-xl font-bold text-fleet-text hidden sm:inline">FleetFlow</span>
                                 </Link>
                             </div>
 
@@ -91,16 +91,10 @@ const showingNavigationDropdown = ref(false);
 
                                     <template #content>
                                         <DropdownLink
-                                            :href="route('profile.edit')"
-                                            class="text-fleet-text hover:bg-fleet-accent/10"
-                                        >
-                                            Profile
-                                        </DropdownLink>
-                                        <DropdownLink
                                             :href="route('logout')"
                                             method="post"
                                             as="button"
-                                            class="text-fleet-text hover:bg-fleet-accent/10"
+                                            class="text-fleet-text hover:bg-fleet-accent/10 w-full text-left"
                                         >
                                             Log Out
                                         </DropdownLink>
@@ -201,12 +195,6 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink 
-                                :href="route('profile.edit')"
-                                class="text-fleet-text hover:opacity-90"
-                            >
-                                Profile
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink
                                 :href="route('logout')"
                                 method="post"
                                 as="button"
