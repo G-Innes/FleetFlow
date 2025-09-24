@@ -28,7 +28,7 @@ function handleImageError() {
 
 <template>
     <Head title="FleetFlow Task Management" />
-    <div class="bg-fleet-dark text-fleet-text min-h-screen">
+    <div class="bg-fleet-dark text-fleet-text min-h-screen bg-fleet-logo">
         <div class="relative flex min-h-screen flex-col items-center justify-center">
             <div class="relative w-full max-w-4xl px-6 lg:max-w-7xl">
                 <header class="flex items-center justify-between py-10">

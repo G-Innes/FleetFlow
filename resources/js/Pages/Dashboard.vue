@@ -190,7 +190,8 @@ const submitDashImport = () => {
                                     <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Manage Categories</span>
                                 </Link>
                                 
-                                <button 
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <button 
                                     @click="showExport = true"
                                     class="w-full flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
                                 >
@@ -200,7 +201,7 @@ const submitDashImport = () => {
                                     <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Export Tasks</span>
                                 </button>
 
-                                <button 
+                                    <button 
                                     @click="showImport = true"
                                     class="w-full flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
                                 >
@@ -208,7 +209,8 @@ const submitDashImport = () => {
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14V8m0 0l-3 3m3-3l3 3m2-6H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6z"></path>
                                     </svg>
                                     <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Import Tasks</span>
-                                </button>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         </div>
