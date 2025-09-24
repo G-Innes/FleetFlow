@@ -17,12 +17,20 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
+        $dueSoon = filter_var($request->input('due_soon', false), FILTER_VALIDATE_BOOLEAN);
+
         $tasks = Task::with('category')
             ->where('user_id', Auth::id())
             ->byCategory($request->category)
             ->when($request->status === 'completed', fn($q) => $q->where('is_completed', true))
             ->when($request->status === 'pending', fn($q) => $q->where('is_completed', false))
-            ->when($request->due_soon, fn($q) => $q->dueSoon())
+            ->when($dueSoon, fn($q) => $q->dueSoon())
+            ->when($request->filled('priority'), function ($q) use ($request) {
+                $priority = (int) $request->priority;
+                if (in_array($priority, [1,2,3], true)) {
+                    $q->where('priority', $priority);
+                }
+            })
             ->orderBy('due_date', 'asc')
             ->orderBy('priority', 'desc')
             ->paginate(10);
@@ -32,7 +40,7 @@ class TaskController extends Controller
         return Inertia::render('Tasks/Index', [
             'tasks' => $tasks,
             'categories' => $categories,
-            'filters' => $request->only(['category', 'status', 'due_soon'])
+            'filters' => $request->only(['category', 'status', 'priority'])
         ]);
     }
 

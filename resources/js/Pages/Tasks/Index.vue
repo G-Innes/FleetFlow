@@ -9,10 +9,9 @@ const props = defineProps({
     filters: Object
 });
 
-const search = ref(props.filters.search || '');
 const categoryFilter = ref(props.filters.category || '');
 const statusFilter = ref(props.filters.status || '');
-const dueSoonFilter = ref(props.filters.due_soon || false);
+const priorityFilter = ref(props.filters.priority || '');
 
 const filteredTasks = computed(() => {
     return props.tasks.data;
@@ -70,10 +69,9 @@ const toggleTask = (task) => {
 
 const applyFilters = () => {
     router.get(route('tasks.index'), {
-        search: search.value,
         category: categoryFilter.value,
         status: statusFilter.value,
-        due_soon: dueSoonFilter.value
+        priority: priorityFilter.value
     }, {
         preserveState: true,
         replace: true
@@ -81,10 +79,9 @@ const applyFilters = () => {
 };
 
 const clearFilters = () => {
-    search.value = '';
     categoryFilter.value = '';
     statusFilter.value = '';
-    dueSoonFilter.value = false;
+    priorityFilter.value = '';
     applyFilters();
 };
 </script>
@@ -121,18 +118,6 @@ const clearFilters = () => {
                 <!-- Filters -->
                 <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 mb-8">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <!-- Search -->
-                        <div>
-                            <label class="block text-sm font-medium text-fleet-text mb-2">Search</label>
-                            <input
-                                v-model="search"
-                                type="text"
-                                placeholder="Search tasks..."
-                                class="w-full px-4 py-2 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text placeholder-fleet-text-muted focus:border-fleet-accent focus:ring-2 focus:ring-fleet-accent/20 focus:outline-none transition-all duration-200"
-                                @input="applyFilters"
-                            />
-                        </div>
-
                         <!-- Category Filter -->
                         <div>
                             <label class="block text-sm font-medium text-fleet-text mb-2">Category</label>
@@ -162,17 +147,19 @@ const clearFilters = () => {
                             </select>
                         </div>
 
-                        <!-- Due Soon Filter -->
-                        <div class="flex items-end">
-                            <label class="flex items-center space-x-2 cursor-pointer">
-                                <input
-                                    v-model="dueSoonFilter"
-                                    type="checkbox"
-                                    class="w-4 h-4 text-fleet-accent bg-fleet-dark border-fleet-accent/20 rounded focus:ring-fleet-accent/20 focus:ring-2"
-                                    @change="applyFilters"
-                                />
-                                <span class="text-sm font-medium text-fleet-text">Due Soon</span>
-                            </label>
+                        <!-- Priority Filter -->
+                        <div>
+                            <label class="block text-sm font-medium text-fleet-text mb-2">Priority</label>
+                            <select
+                                v-model="priorityFilter"
+                                class="w-full px-4 py-2 bg-fleet-dark border border-fleet-accent/20 rounded-lg text-fleet-text focus:border-fleet-accent focus:ring-2 focus:ring-fleet-accent/20 focus:outline-none transition-all duration-200"
+                                @change="applyFilters"
+                            >
+                                <option value="">All</option>
+                                <option value="3">High</option>
+                                <option value="2">Medium</option>
+                                <option value="1">Low</option>
+                            </select>
                         </div>
                     </div>
 
