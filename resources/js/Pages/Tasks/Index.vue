@@ -108,6 +108,15 @@ const clearFilters = () => {
     dueSoonFilter.value = false;
     applyFilters();
 };
+
+const triggerExport = () => {
+    const params = new URLSearchParams();
+    if (categoryFilter.value) params.set('category', categoryFilter.value);
+    if (statusFilter.value) params.set('status', statusFilter.value);
+    if (priorityFilter.value) params.set('priority', priorityFilter.value);
+    if (dueSoonFilter.value) params.set('due_soon', '1');
+    window.location.href = route('tasks.export') + (params.toString() ? `?${params.toString()}` : '');
+};
 </script>
 
 <template>
@@ -128,17 +137,12 @@ const clearFilters = () => {
                     >
                         Import CSV
                     </button>
-                    <Link 
-                        :href="route('tasks.export', { 
-                            category: categoryFilter || undefined,
-                            status: statusFilter || undefined,
-                            priority: priorityFilter || undefined,
-                            due_soon: dueSoonFilter || undefined
-                        })" 
+                    <button 
+                        @click="triggerExport"
                         class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-fleet-accent/10"
                     >
                         Export CSV
-                    </Link>
+                    </button>
                     <Link 
                         :href="route('tasks.create')" 
                         class="bg-fleet-accent hover:bg-fleet-accent-light text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-fleet-accent/25"
