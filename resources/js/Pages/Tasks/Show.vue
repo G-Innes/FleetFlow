@@ -1,10 +1,25 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 const props = defineProps({
     task: Object
 });
+
+const isToggling = ref(false);
+
+const toggleCompletion = () => {
+    if (isToggling.value) return;
+    
+    isToggling.value = true;
+    router.patch(route('tasks.toggle', props.task.id), {}, {
+        preserveScroll: true,
+        onFinish: () => {
+            isToggling.value = false;
+        }
+    });
+};
 
 // Helper function to format date for display
 const formatDate = (dateString) => {
@@ -137,6 +152,19 @@ const getPriorityLabel = (priority) => {
                         <!-- Task Actions -->
                         <div class="flex items-center justify-between pt-6 border-t border-fleet-accent/10">
                             <div class="flex space-x-3">
+                                <button
+                                    @click="toggleCompletion"
+                                    :disabled="isToggling"
+                                    :class="{
+                                        'bg-fleet-success hover:bg-fleet-success/80': !task.is_completed,
+                                        'bg-fleet-text-muted hover:bg-fleet-text-muted/80': task.is_completed
+                                    }"
+                                    class="text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 disabled:opacity-50"
+                                >
+                                    <span v-if="isToggling">Updating...</span>
+                                    <span v-else-if="task.is_completed">Mark as Incomplete</span>
+                                    <span v-else>Mark as Complete</span>
+                                </button>
                                 <Link 
                                     :href="route('tasks.edit', task.id)" 
                                     class="bg-fleet-gradient hover:opacity-90 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200"

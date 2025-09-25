@@ -228,15 +228,14 @@ const submitDashImport = () => {
                                 </Link>
                             </div>
                                   <div class="space-y-3">
-                                      <Link 
+                                      <div 
                                           v-for="task in (props.dueSoonTasks || [])" 
                                           :key="task.id"
-                                          :href="route('tasks.edit', task.id)"
                                           class="flex items-center justify-between p-4 bg-fleet-dark/30 rounded-lg border border-fleet-accent/10 hover:border-fleet-accent/30 transition-all duration-200"
                                       >
-                                          <div class="flex items-center space-x-3">
+                                          <div class="flex items-center space-x-3 flex-1">
                                               <div class="w-2 h-2 rounded-full bg-fleet-gradient"></div>
-                                              <div>
+                                              <div class="flex-1">
                                                   <p class="text-fleet-text font-medium">{{ task.title }}</p>
                                                   <p class="text-fleet-text-muted text-sm">{{ task.category }}</p>
                                               </div>
@@ -254,14 +253,20 @@ const submitDashImport = () => {
                                                       <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                                   </svg>
                                               </div>
+                                              <Link 
+                                                  :href="route('tasks.show', task.id)"
+                                                  class="text-fleet-accent hover:text-fleet-accent-light text-xs font-medium transition-colors"
+                                              >
+                                                  View
+                                              </Link>
                                           </div>
-                                      </Link>
+                                      </div>
                                   </div>
                         </div>
                         </div>
                     </div>
 
-                    <!-- Recent Tasks (moved below Due Soon) -->
+                    <!-- Recent Tasks -->
                     <div class="lg:col-span-3">
                     <div class="glow-wrap" @mousemove="(e)=>{const r=e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--gx', `${e.clientX-r.left}px`); e.currentTarget.style.setProperty('--gy', `${e.clientY-r.top}px`) }">
                         <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 glow-follow">
@@ -275,15 +280,14 @@ const submitDashImport = () => {
                                 </Link>
                             </div>
                                   <div class="space-y-3">
-                                      <Link 
+                                      <div 
                                           v-for="task in (props.recentTasks || [])" 
                                           :key="task.id"
-                                          :href="route('tasks.edit', task.id)"
                                           class="flex items-center justify-between p-4 bg-fleet-dark/30 rounded-lg border border-fleet-accent/10 hover:border-fleet-accent/30 transition-all duration-200"
                                       >
-                                          <div class="flex items-center space-x-3">
+                                          <div class="flex items-center space-x-3 flex-1">
                                               <div class="w-2 h-2 rounded-full bg-fleet-gradient"></div>
-                                              <div>
+                                              <div class="flex-1">
                                                   <p class="text-fleet-text font-medium">{{ task.title }}</p>
                                                   <p class="text-fleet-text-muted text-sm">{{ task.category }}</p>
                                               </div>
@@ -301,8 +305,14 @@ const submitDashImport = () => {
                                                       <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                                                   </svg>
                                               </div>
+                                              <Link 
+                                                  :href="route('tasks.show', task.id)"
+                                                  class="text-fleet-accent hover:text-fleet-accent-light text-xs font-medium transition-colors"
+                                              >
+                                                  View
+                                              </Link>
                                           </div>
-                                      </Link>
+                                      </div>
                                   </div>
                         </div>
                         </div>
