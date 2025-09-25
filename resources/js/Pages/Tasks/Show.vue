@@ -13,7 +13,9 @@ const toggleCompletion = () => {
     if (isToggling.value) return;
     
     isToggling.value = true;
-    router.patch(route('tasks.toggle', props.task.id), {}, {
+    // Ensure relative URL to avoid mixed-content
+    const toRelative = (url) => { try { const u = new URL(url, window.location.origin); return u.pathname + u.search; } catch { return url; } };
+    router.patch(toRelative(route('tasks.toggle', props.task.id)), {}, {
         preserveScroll: true,
         onFinish: () => {
             isToggling.value = false;

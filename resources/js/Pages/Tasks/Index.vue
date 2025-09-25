@@ -85,7 +85,8 @@ const isOverdue = (dueDate) => {
 };
 
 const toggleTask = (task) => {
-    router.patch(route('tasks.toggle', task.id), {}, {
+    const url = toRelative(route('tasks.toggle', task.id));
+    router.patch(url, {}, {
         preserveState: true,
         preserveScroll: true,
     });
@@ -117,7 +118,8 @@ const triggerExport = () => {
     if (statusFilter.value) params.set('status', statusFilter.value);
     if (priorityFilter.value) params.set('priority', priorityFilter.value);
     if (dueSoonFilter.value) params.set('due_soon', '1');
-    window.location.href = route('tasks.export') + (params.toString() ? `?${params.toString()}` : '');
+    const base = toRelative(route('tasks.export'));
+    window.location.href = base + (params.toString() ? `?${params.toString()}` : '');
 };
 
 const goToPage = (url) => {
@@ -134,6 +136,26 @@ const goToPage = (url) => {
         preserveState: true,
         preserveScroll: true,
         replace: true
+    });
+};
+
+// Convert absolute URL to relative path to avoid http/https mixed content
+const toRelative = (url) => {
+    try {
+        const u = new URL(url, window.location.origin);
+        return u.pathname + u.search;
+    } catch (e) {
+        return url;
+    }
+};
+
+const deleteTask = (task) => {
+    if (!confirm('Are you sure you want to delete this task?')) return;
+    const url = toRelative(route('tasks.destroy', task.id));
+    router.delete(url, {
+        preserveState: true,
+        preserveScroll: true,
+        replace: true,
     });
 };
 </script>
@@ -341,7 +363,7 @@ const goToPage = (url) => {
                                     Edit
                                 </Link>
                                 <button
-                                    @click="router.delete(route('tasks.destroy', task.id), { onBefore: () => confirm('Are you sure you want to delete this task?') })"
+                                    @click="deleteTask(task)"
                                     class="text-fleet-danger hover:text-red-400 text-sm font-medium transition-colors"
                                 >
                                     Delete

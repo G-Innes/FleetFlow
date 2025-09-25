@@ -48,13 +48,18 @@ const showImport = ref(false);
 const exportFilters = ref({ category: '', status: '', priority: '', due_soon: false });
 const importFile = ref(null);
 
+const toRelative = (url) => {
+    try { const u = new URL(url, window.location.origin); return u.pathname + u.search; } catch { return url; }
+};
+
 const triggerExport = () => {
     const params = new URLSearchParams();
     if (exportFilters.value.category) params.set('category', exportFilters.value.category);
     if (exportFilters.value.status) params.set('status', exportFilters.value.status);
     if (exportFilters.value.priority) params.set('priority', exportFilters.value.priority);
     if (exportFilters.value.due_soon) params.set('due_soon', '1');
-    window.location.href = route('tasks.export') + (params.toString() ? `?${params.toString()}` : '');
+    const base = toRelative(route('tasks.export'));
+    window.location.href = base + (params.toString() ? `?${params.toString()}` : '');
 };
 
 const onDashFileChange = (e) => {

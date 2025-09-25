@@ -7,9 +7,12 @@ const props = defineProps({
     categories: Array
 });
 
+const toRelative = (url) => { try { const u = new URL(url, window.location.origin); return u.pathname + u.search; } catch { return url; } };
+
 const deleteCategory = (category) => {
     if (confirm(`Are you sure you want to delete the category "${category.name}"? This action cannot be undone.`)) {
-        router.delete(route('categories.destroy', category.id));
+        const url = toRelative(route('categories.destroy', category.id));
+        router.delete(url, { preserveState: true, preserveScroll: true, replace: true });
     }
 };
 </script>
