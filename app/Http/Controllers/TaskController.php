@@ -77,7 +77,7 @@ class TaskController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'category_id' => $request->category_id,
-            'due_date' => $request->due_date,
+            'due_date' => $request->due_date ? \Carbon\Carbon::parse($request->due_date)->utc() : null,
             'priority' => $request->priority,
         ]);
 
@@ -122,7 +122,12 @@ class TaskController extends Controller
             'is_completed' => 'boolean'
         ]);
 
-        $task->update($request->all());
+        $updateData = $request->all();
+        // Convert due_date from local timezone to UTC before storing
+        if (isset($updateData['due_date']) && $updateData['due_date']) {
+            $updateData['due_date'] = \Carbon\Carbon::parse($updateData['due_date'])->utc();
+        }
+        $task->update($updateData);
 
         return redirect()->route('tasks.index')
             ->with('success', 'Task updated successfully.');

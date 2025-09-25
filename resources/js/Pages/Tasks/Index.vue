@@ -62,7 +62,9 @@ const formatDate = (date) => {
     return new Date(date).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
-        year: 'numeric'
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
     });
 };
 
@@ -116,6 +118,15 @@ const triggerExport = () => {
     if (priorityFilter.value) params.set('priority', priorityFilter.value);
     if (dueSoonFilter.value) params.set('due_soon', '1');
     window.location.href = route('tasks.export') + (params.toString() ? `?${params.toString()}` : '');
+};
+
+const goToPage = (url) => {
+    if (!url) return;
+    router.get(url, {}, {
+        preserveState: true,
+        preserveScroll: true,
+        replace: true
+    });
 };
 </script>
 
@@ -351,10 +362,11 @@ const triggerExport = () => {
                 <!-- Pagination -->
                 <div v-if="tasks.links && tasks.links.length > 3" class="mt-8 flex justify-center">
                     <nav class="flex space-x-2">
-                        <Link
+                        <button
                             v-for="link in tasks.links"
                             :key="link.label"
-                            :href="link.url"
+                            @click="goToPage(link.url)"
+                            :disabled="!link.url"
                             v-html="link.label"
                             :class="{
                                 'bg-fleet-accent text-white': link.active,

@@ -8,11 +8,24 @@ const props = defineProps({
     categories: Array
 });
 
+// Helper function to convert UTC date to local datetime-local format
+const formatDateForInput = (utcDateString) => {
+    if (!utcDateString) return '';
+    const date = new Date(utcDateString);
+    // Convert to local timezone and format for datetime-local input
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
+
 const form = useForm({
     title: props.task.title,
     description: props.task.description || '',
     category_id: props.task.category_id || '',
-    due_date: props.task.due_date ? new Date(props.task.due_date).toISOString().slice(0, 16) : '',
+    due_date: formatDateForInput(props.task.due_date),
     priority: props.task.priority,
     is_completed: props.task.is_completed
 });

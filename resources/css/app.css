@@ -12,7 +12,7 @@
         inset: -18px;
         border-radius: 20px; /* matches large rounded cards */
         pointer-events: none;
-        background: radial-gradient(240px 240px at var(--gx, 50%) var(--gy, 50%), rgba(255,140,0,0.25), rgba(255,140,0,0) 60%);
+        background: radial-gradient(240px 240px at var(--gx, 50%) var(--gy, 50%), rgba(255,140,0,0.4), rgba(255,140,0,0) 60%);
         filter: blur(18px);
         opacity: 0;
         transition: opacity .18s ease;
@@ -59,7 +59,7 @@
         inset: -14px; /* extend outside to look like outside shadow */
         border-radius: inherit;
         pointer-events: none;
-        background: radial-gradient(220px 220px at var(--gx, 50%) var(--gy, 50%), rgba(255,140,0,0.25), rgba(255,140,0,0) 60%);
+        background: radial-gradient(220px 220px at var(--gx, 50%) var(--gy, 50%), rgba(255,140,0,0.4), rgba(255,140,0,0) 60%);
         filter: blur(14px);
         opacity: 0;
         transition: opacity .18s ease;
@@ -76,7 +76,7 @@
         border-radius: inherit;
         pointer-events: none;
         padding: 1px; /* thickness of the glowing border */
-        background: radial-gradient(180px 180px at var(--gx, 50%) var(--gy, 50%), rgba(255,140,0,0.55), rgba(255,140,0,0) 60%);
+        background: radial-gradient(180px 180px at var(--gx, 50%) var(--gy, 50%), rgba(255,140,0,0.7), rgba(255,140,0,0) 60%);
         /* Mask the center so only the border ring glows */
         -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
         -webkit-mask-composite: xor;
@@ -89,7 +89,7 @@
     .glow-follow:hover::after {
         opacity: 1;
     }
-    .glow-follow:hover { border-color: rgba(255,140,0,0.6) !important; }
+    .glow-follow:hover { border-color: rgba(255,140,0,0.8) !important; }
 
     /* Background logo utility: position logo on right side */
     .bg-fleet-logo {
