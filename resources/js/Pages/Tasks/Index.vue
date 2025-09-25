@@ -122,7 +122,15 @@ const triggerExport = () => {
 
 const goToPage = (url) => {
     if (!url) return;
-    router.get(url, {}, {
+    // Coerce absolute URLs to relative path to avoid mixed-content issues
+    let href = url;
+    try {
+        const u = new URL(url, window.location.origin);
+        href = u.pathname + u.search;
+    } catch (e) {
+        // If URL constructor fails (already relative), keep href as-is
+    }
+    router.get(href, {}, {
         preserveState: true,
         preserveScroll: true,
         replace: true
