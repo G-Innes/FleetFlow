@@ -131,23 +131,23 @@ const triggerExport = () => {
                     <h1 class="text-3xl font-bold text-fleet-text">Task Management</h1>
                     <p class="text-fleet-text-muted mt-1">Manage your fleet operations tasks</p>
                 </div>
-                <div class="flex space-x-3">
+                <div class="flex space-x-2 sm:space-x-3">
                     <button 
                         type="button"
                         @click="showImport = true"
-                        class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-fleet-accent/10"
+                        class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-2.5 py-1 text-xs sm:px-4 sm:py-2 sm:text-base rounded-lg font-medium transition-all duration-200 hover:bg-fleet-accent/10"
                     >
                         Import CSV
                     </button>
                     <button 
                         @click="triggerExport"
-                        class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-fleet-accent/10"
+                        class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-2.5 py-1 text-xs sm:px-4 sm:py-2 sm:text-base rounded-lg font-medium transition-all duration-200 hover:bg-fleet-accent/10"
                     >
                         Export CSV
                     </button>
                     <Link 
                         :href="route('tasks.create')" 
-                        class="bg-fleet-accent hover:bg-fleet-accent-light text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-fleet-accent/25"
+                        class="bg-fleet-accent hover:bg-fleet-accent-light text-white px-3 py-1.5 text-xs sm:px-6 sm:py-3 sm:text-base rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-fleet-accent/25"
                     >
                         + New Task
                     </Link>
