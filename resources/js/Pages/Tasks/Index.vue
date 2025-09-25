@@ -85,8 +85,7 @@ const isOverdue = (dueDate) => {
 };
 
 const toggleTask = (task) => {
-    const url = toRelative(route('tasks.toggle', task.id));
-    router.patch(url, {}, {
+    router.patch(route('tasks.toggle', task.id), {}, {
         preserveState: true,
         preserveScroll: true,
     });
@@ -118,45 +117,7 @@ const triggerExport = () => {
     if (statusFilter.value) params.set('status', statusFilter.value);
     if (priorityFilter.value) params.set('priority', priorityFilter.value);
     if (dueSoonFilter.value) params.set('due_soon', '1');
-    const base = toRelative(route('tasks.export'));
-    window.location.href = base + (params.toString() ? `?${params.toString()}` : '');
-};
-
-const goToPage = (url) => {
-    if (!url) return;
-    // Coerce absolute URLs to relative path to avoid mixed-content issues
-    let href = url;
-    try {
-        const u = new URL(url, window.location.origin);
-        href = u.pathname + u.search;
-    } catch (e) {
-        // If URL constructor fails (already relative), keep href as-is
-    }
-    router.get(href, {}, {
-        preserveState: true,
-        preserveScroll: true,
-        replace: true
-    });
-};
-
-// Convert absolute URL to relative path to avoid http/https mixed content
-const toRelative = (url) => {
-    try {
-        const u = new URL(url, window.location.origin);
-        return u.pathname + u.search;
-    } catch (e) {
-        return url;
-    }
-};
-
-const deleteTask = (task) => {
-    if (!confirm('Are you sure you want to delete this task?')) return;
-    const url = toRelative(route('tasks.destroy', task.id));
-    router.delete(url, {
-        preserveState: true,
-        preserveScroll: true,
-        replace: true,
-    });
+    window.location.href = route('tasks.export') + (params.toString() ? `?${params.toString()}` : '');
 };
 </script>
 
@@ -351,19 +312,13 @@ const deleteTask = (task) => {
                         <div class="mt-6 flex items-center justify-between">
                             <div class="flex space-x-2">
                                 <Link
-                                    :href="route('tasks.show', task.id)"
-                                    class="text-fleet-success hover:text-fleet-success/80 text-sm font-medium transition-colors"
-                                >
-                                    View
-                                </Link>
-                                <Link
                                     :href="route('tasks.edit', task.id)"
                                     class="text-fleet-accent hover:text-fleet-accent-light text-sm font-medium transition-colors"
                                 >
                                     Edit
                                 </Link>
                                 <button
-                                    @click="deleteTask(task)"
+                                    @click="router.delete(route('tasks.destroy', task.id), { onBefore: () => confirm('Are you sure you want to delete this task?') })"
                                     class="text-fleet-danger hover:text-red-400 text-sm font-medium transition-colors"
                                 >
                                     Delete
@@ -398,11 +353,10 @@ const deleteTask = (task) => {
                 <!-- Pagination -->
                 <div v-if="tasks.links && tasks.links.length > 3" class="mt-8 flex justify-center">
                     <nav class="flex space-x-2">
-                        <button
+                        <Link
                             v-for="link in tasks.links"
                             :key="link.label"
-                            @click="goToPage(link.url)"
-                            :disabled="!link.url"
+                            :href="link.url"
                             v-html="link.label"
                             :class="{
                                 'bg-fleet-accent text-white': link.active,

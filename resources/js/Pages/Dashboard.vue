@@ -106,10 +106,10 @@ const submitDashImport = () => {
                     <!-- Total Tasks Card -->
                     <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 hover:border-fleet-accent/40 transition-all duration-300 hover:shadow-lg hover:shadow-fleet-accent/10">
                         <div class="flex items-center justify-between">
-                                  <div>
-                                      <p class="text-fleet-text-muted text-sm font-medium">Total Tasks</p>
-                                      <p class="text-3xl font-bold text-fleet-text">{{ props.stats?.totalTasks || 0 }}</p>
-                                  </div>
+                              <div>
+                                  <p class="text-fleet-text-muted text-sm font-medium">Total Tasks</p>
+                                  <p class="text-3xl font-bold text-fleet-text">{{ props.stats?.totalTasks || 0 }}</p>
+                              </div>
                             <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-fleet-dark border border-fleet-accent/20">
                                 <svg class="w-6 h-6 text-fleet-gradient" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
@@ -121,12 +121,11 @@ const submitDashImport = () => {
                     <!-- Completed Tasks Card -->
                     <div class="bg-fleet-darker border border-fleet-success/20 rounded-xl p-6 hover:border-fleet-success/40 transition-all duration-300 hover:shadow-lg hover:shadow-fleet-success/10">
                         <div class="flex items-center justify-between">
-                                  <div>
-                                      <p class="text-fleet-text-muted text-sm font-medium">Completed</p>
-                                      <p class="text-3xl font-bold text-fleet-success">{{ props.stats?.completedTasks || 0 }}</p>
-                                      <p class="text-fleet-text-muted text-sm">{{ completionRate }}% completion rate</p>
-                                  </div>
-                            <div class="w-12 h-12 bg-fleet-success/10 rounded-lg flex items-center justify-center">
+                              <div>
+                                  <p class="text-fleet-text-muted text-sm font-medium">Completed</p>
+                                  <p class="text-3xl font-bold text-fleet-text">{{ props.stats?.completedTasks || 0 }}</p>
+                              </div>
+                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-fleet-dark border border-fleet-success/20">
                                 <svg class="w-6 h-6 text-fleet-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
@@ -137,12 +136,11 @@ const submitDashImport = () => {
                     <!-- Due Soon Card -->
                     <div class="bg-fleet-darker border border-fleet-warning/20 rounded-xl p-6 hover:border-fleet-warning/40 transition-all duration-300 hover:shadow-lg hover:shadow-fleet-warning/10">
                         <div class="flex items-center justify-between">
-                                  <div>
-                                      <p class="text-fleet-text-muted text-sm font-medium">Due Soon</p>
-                                      <p class="text-3xl font-bold text-fleet-warning">{{ props.stats?.dueSoon || 0 }}</p>
-                                      <p class="text-fleet-text-muted text-sm">Next 3 days</p>
-                                  </div>
-                            <div class="w-12 h-12 bg-fleet-warning/10 rounded-lg flex items-center justify-center">
+                              <div>
+                                  <p class="text-fleet-text-muted text-sm font-medium">Due Soon</p>
+                                  <p class="text-3xl font-bold text-fleet-text">{{ props.stats?.dueSoon || 0 }}</p>
+                              </div>
+                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-fleet-dark border border-fleet-warning/20">
                                 <svg class="w-6 h-6 text-fleet-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
@@ -153,69 +151,67 @@ const submitDashImport = () => {
                     <!-- Overdue Card -->
                     <div class="bg-fleet-darker border border-fleet-danger/20 rounded-xl p-6 hover:border-fleet-danger/40 transition-all duration-300 hover:shadow-lg hover:shadow-fleet-danger/10">
                         <div class="flex items-center justify-between">
-                                  <div>
-                                      <p class="text-fleet-text-muted text-sm font-medium">Overdue</p>
-                                      <p class="text-3xl font-bold text-fleet-danger">{{ props.stats?.overdue || 0 }}</p>
-                                      <p class="text-fleet-text-muted text-sm">Requires attention</p>
-                                  </div>
-                            <div class="w-12 h-12 bg-fleet-danger/10 rounded-lg flex items-center justify-center">
+                              <div>
+                                  <p class="text-fleet-text-muted text-sm font-medium">Overdue</p>
+                                  <p class="text-3xl font-bold text-fleet-text">{{ props.stats?.overdue || 0 }}</p>
+                              </div>
+                            <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-fleet-dark border border-fleet-danger/20">
                                 <svg class="w-6 h-6 text-fleet-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M5.21 7.21a7 7 0 119.9 9.9 7 7 0 01-9.9-9.9z"></path>
                                 </svg>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Quick Actions & Task Lists -->
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Quick Actions -->
-                    <div class="lg:col-span-1">
-                    <div class="glow-wrap" @mousemove="(e)=>{const r=e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--gx', `${e.clientX-r.left}px`); e.currentTarget.style.setProperty('--gy', `${e.clientY-r.top}px`) }">
-                        <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 glow-follow">
-                            <h3 class="text-xl font-semibold text-fleet-text mb-4">Quick Actions</h3>
-                            <div class="space-y-3">
-                                <Link 
-                                    :href="route('tasks.index')" 
-                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
-                                >
-                                    <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                                    </svg>
-                                    <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">View All Tasks</span>
-                                </Link>
-                                
-                                <Link 
-                                    :href="route('categories.index')" 
-                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
-                                >
-                                    <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                                    </svg>
-                                    <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Manage Categories</span>
-                                </Link>
-                                
-                                <button 
-                                    @click="showImport = true"
-                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
-                                >
-                                    <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14V8m0 0l-3 3m3-3l3 3m2-6H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6z"></path>
-                                    </svg>
-                                    <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Import Tasks</span>
-                                </button>
+                <!-- Quick Actions + Lists -->
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                    <div class="lg:col-span-2">
+                        <div class="glow-wrap" @mousemove="(e)=>{const r=e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--gx', `${e.clientX-r.left}px`); e.currentTarget.style.setProperty('--gy', `${e.clientY-r.top}px`) }">
+                            <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 glow-follow">
+                                <h3 class="text-xl font-semibold text-fleet-text mb-4">Quick Actions</h3>
+                                <div class="space-y-3">
+                                    <Link
+                                        :href="route('tasks.index')"
+                                        class="w-full flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
+                                    >
+                                        <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                        </svg>
+                                        <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">View All Tasks</span>
+                                    </Link>
 
-                                <button 
-                                    @click="showExport = true"
-                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
-                                >
-                                    <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Export Tasks</span>
-                                </button>
+                                    <Link 
+                                        :href="route('categories.index')" 
+                                        class="w-full flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
+                                    >
+                                        <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                        </svg>
+                                        <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Manage Categories</span>
+                                    </Link>
+
+                                    <button 
+                                        @click="showImport = true"
+                                        class="w-full flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
+                                    >
+                                        <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14V8m0 0l-3 3m3-3l3 3m2-6H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6z"></path>
+                                        </svg>
+                                        <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Import Tasks</span>
+                                    </button>
+
+                                    <button 
+                                        @click="showExport = true"
+                                        class="w-full flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
+                                    >
+                                        <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Export Tasks</span>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </div>
 
