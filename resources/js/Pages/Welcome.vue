@@ -138,8 +138,8 @@ function handleImageError() {
 
                     <!-- Tech Stack -->
                     <div class="mt-16 text-center">
-                        <h2 class="text-2xl font-bold text-fleet-text mb-8">Built with Modern Technology</h2>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <h2 class="text-2xl font-bold text-fleet-text mb-8">Built with</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             <div class="bg-fleet-darker border border-fleet-accent/20 rounded-lg p-4 transition-all duration-500 hover:animate-gradientGlow-slow">
                                 <div class="text-fleet-accent font-semibold">Laravel 12</div>
                                 <div class="text-fleet-text-muted text-sm">PHP Framework</div>
@@ -156,12 +156,32 @@ function handleImageError() {
                                 <div class="text-fleet-accent font-semibold">Tailwind CSS</div>
                                 <div class="text-fleet-text-muted text-sm">Styling</div>
                             </div>
+                            <div class="bg-fleet-darker border border-fleet-accent/20 rounded-lg p-4 transition-all duration-500 hover:animate-gradientGlow-slow">
+                                <div class="text-fleet-accent font-semibold">Neon PostgreSQL</div>
+                                <div class="text-fleet-text-muted text-sm">Database</div>
+                            </div>
+                            <div class="bg-fleet-darker border border-fleet-accent/20 rounded-lg p-4 transition-all duration-500 hover:animate-gradientGlow-slow">
+                                <div class="text-fleet-accent font-semibold">Vercel</div>
+                                <div class="text-fleet-text-muted text-sm">Hosting & Deployment</div>
+                            </div>
+                            <div class="bg-fleet-darker border border-fleet-accent/20 rounded-lg p-4 transition-all duration-500 hover:animate-gradientGlow-slow">
+                                <div class="text-fleet-accent font-semibold">Vite</div>
+                                <div class="text-fleet-text-muted text-sm">Build Tool</div>
+                            </div>
+                            <div class="bg-fleet-darker border border-fleet-accent/20 rounded-lg p-4 transition-all duration-500 hover:animate-gradientGlow-slow">
+                                <div class="text-fleet-accent font-semibold">PEST</div>
+                                <div class="text-fleet-text-muted text-sm">Testing Framework</div>
+                            </div>
+                            <div class="bg-fleet-darker border border-fleet-accent/20 rounded-lg p-4 transition-all duration-500 hover:animate-gradientGlow-slow">
+                                <div class="text-fleet-accent font-semibold">Laravel Breeze</div>
+                                <div class="text-fleet-text-muted text-sm">Authentication</div>
+                            </div>
                         </div>
                     </div>
                 </main>
 
                 <footer class="py-16 text-center text-fleet-text-muted">
-                    <p>FleetFlow Task Management - Built with Laravel {{ laravelVersion }} (PHP {{ phpVersion }})</p>
+                    <p>FleetFlow Task Management - Built with Love by Grant Innes</p>
                 </footer>
             </div>
         </div>

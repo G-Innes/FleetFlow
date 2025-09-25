@@ -190,27 +190,25 @@ const submitDashImport = () => {
                                     <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Manage Categories</span>
                                 </Link>
                                 
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    <button 
+                                <button 
+                                    @click="showImport = true"
+                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
+                                >
+                                    <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14V8m0 0l-3 3m3-3l3 3m2-6H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6z"></path>
+                                    </svg>
+                                    <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Import Tasks</span>
+                                </button>
+
+                                <button 
                                     @click="showExport = true"
-                                    class="w-full flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
+                                    class="flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
                                 >
                                     <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                     </svg>
                                     <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Export Tasks</span>
                                 </button>
-
-                                    <button 
-                                    @click="showImport = true"
-                                    class="w-full flex items-center p-3 bg-fleet-dark/50 rounded-lg hover:opacity-90 transition-all duration-200 group"
-                                >
-                                    <svg class="w-5 h-5 text-fleet-gradient mr-3 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14V8m0 0l-3 3m3-3l3 3m2-6H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6z"></path>
-                                    </svg>
-                                    <span class="text-fleet-text group-hover:text-fleet-gradient transition-colors">Import Tasks</span>
-                                    </button>
-                                </div>
                             </div>
                         </div>
                         </div>
@@ -264,7 +262,7 @@ const submitDashImport = () => {
                     </div>
 
                     <!-- Recent Tasks (moved below Due Soon) -->
-                    <div class="lg:col-span-2">
+                    <div class="lg:col-span-3">
                     <div class="glow-wrap" @mousemove="(e)=>{const r=e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--gx', `${e.clientX-r.left}px`); e.currentTarget.style.setProperty('--gy', `${e.clientY-r.top}px`) }">
                         <div class="bg-fleet-darker border border-fleet-accent/20 rounded-xl p-6 glow-follow">
                             <div class="flex items-center justify-between mb-4">
