@@ -17,14 +17,14 @@ const showingNavigationDropdown = ref(false);
                 class="border-b border-fleet-accent/20 bg-fleet-darker/50 backdrop-blur-sm relative z-40"
             >
                 <!-- Primary Navigation Menu -->
-                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="flex h-16 justify-between">
+                <div class="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+                    <div class="flex h-14 sm:h-16 justify-between">
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
                                 <Link :href="route('dashboard')" class="flex items-center">
-                                    <img src="/logo.svg" alt="FleetFlow" class="w-8 h-8" />
-                                    <span class="ml-2 text-xl font-bold text-fleet-text hidden sm:inline">FleetFlow</span>
+                                    <img src="/logo.svg" alt="FleetFlow" class="w-7 h-7 sm:w-8 sm:h-8" />
+                                    <span class="ml-2 text-lg sm:text-xl font-bold text-fleet-text hidden xs:inline sm:inline">FleetFlow</span>
                                 </Link>
                             </div>
 
@@ -64,27 +64,14 @@ const showingNavigationDropdown = ref(false);
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                class="inline-flex items-center rounded-lg border border-fleet-accent/20 bg-fleet-darker px-4 py-2 text-sm font-medium leading-4 text-fleet-text transition duration-150 ease-in-out hover:opacity-90 hover:border-fleet-accent/40 focus:outline-none focus:ring-2 focus:ring-fleet-accent/20"
+                                                class="inline-flex items-center rounded-lg border border-fleet-accent/20 bg-fleet-darker px-3 py-1.5 text-sm leading-4 sm:px-4 sm:py-2 sm:text-sm font-medium text-fleet-text transition duration-150 ease-in-out hover:opacity-90 hover:border-fleet-accent/40 focus:outline-none focus:ring-2 focus:ring-fleet-accent/20"
                                             >
-                                                <div class="w-8 h-8 bg-fleet-gradient rounded-full flex items-center justify-center mr-2">
-                                                    <span class="text-sm font-semibold text-white">
+                                                <div class="w-7 h-7 sm:w-8 sm:h-8 bg-fleet-gradient rounded-full flex items-center justify-center mr-2">
+                                                    <span class="text-xs sm:text-sm font-semibold text-white">
                                                         {{ $page.props.auth.user.name.charAt(0).toUpperCase() }}
                                                     </span>
                                                 </div>
-                                                {{ $page.props.auth.user.name }}
-
-                                                <svg
-                                                    class="-me-0.5 ms-2 h-4 w-4 text-fleet-text-muted"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
+                                                <span class="hidden sm:inline">{{ $page.props.auth.user.name }}</span>
                                             </button>
                                         </span>
                                     </template>
@@ -212,7 +199,7 @@ const showingNavigationDropdown = ref(false);
                 class="bg-fleet-darker/50 backdrop-blur-sm border-b border-fleet-accent/20"
                 v-if="$slots.header"
             >
-                <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-7xl px-3 py-4 sm:px-6 sm:py-6 lg:px-8">
                     <slot name="header" />
                 </div>
             </header>

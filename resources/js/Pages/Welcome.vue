@@ -33,14 +33,14 @@ function handleImageError() {
             <div class="relative w-full max-w-4xl px-6 lg:max-w-7xl">
                 <header class="flex items-center justify-between py-10">
                     <div class="flex items-center space-x-0">
-                        <img src="/logo.svg" alt="FleetFlow" class="w-24 h-24" />
-                        <span class="text-2xl font-bold text-fleet-text">FleetFlow</span>
+                        <img src="/logo.svg" alt="FleetFlow" class="w-10 h-10 sm:w-14 sm:h-14 md:w-20 md:h-20" />
+                        <span class="text-xl sm:text-2xl font-bold text-fleet-text ml-2">FleetFlow</span>
                     </div>
                     <nav v-if="canLogin" class="flex items-center gap-3">
                         <Link
                             v-if="$page.props.auth.user"
                             :href="route('dashboard')"
-                            class="rounded-lg px-4 py-2 bg-fleet-gradient text-white font-medium transition-all duration-200 hover:opacity-90 hover:shadow-lg"
+                            class="rounded-lg px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base bg-fleet-gradient text-white font-medium transition-all duration-200 hover:opacity-90 hover:shadow-lg"
                         >
                             Dashboard
                         </Link>
@@ -48,7 +48,7 @@ function handleImageError() {
                         <template v-else>
                             <Link
                                 :href="route('login')"
-                                class="rounded-lg px-4 py-2 text-fleet-text ring-1 ring-fleet-accent/20 transition hover:bg-fleet-accent/10 hover:ring-fleet-accent/40 focus:outline-none focus-visible:ring-fleet-accent"
+                                class="rounded-lg px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base text-fleet-text ring-1 ring-fleet-accent/20 transition hover:bg-fleet-accent/10 hover:ring-fleet-accent/40 focus:outline-none focus-visible:ring-fleet-accent"
                             >
                                 Log in
                             </Link>
@@ -56,7 +56,7 @@ function handleImageError() {
                             <Link
                                 v-if="canRegister"
                                 :href="route('register')"
-                                class="rounded-lg px-4 py-2 bg-fleet-gradient text-white font-medium transition-all duration-200 hover:opacity-90 hover:shadow-lg"
+                                class="rounded-lg px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base bg-fleet-gradient text-white font-medium transition-all duration-200 hover:opacity-90 hover:shadow-lg"
                             >
                                 Register
                             </Link>
@@ -67,24 +67,24 @@ function handleImageError() {
                 <main class="mt-6">
                     <!-- Hero Section -->
                     <div class="text-center mb-12">
-                        <h1 class="text-5xl font-bold text-fleet-text mb-4">
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-fleet-text mb-4">
                             FleetFlow Task Management
                         </h1>
-                        <p class="text-xl text-fleet-text-muted mb-8">
+                        <p class="text-base sm:text-xl text-fleet-text-muted mb-8">
                             Streamline your fleet operations with intelligent task management
                         </p>
                         <div class="flex justify-center space-x-4">
                             <Link
                                 v-if="canRegister"
                                 :href="route('register')"
-                                class="bg-fleet-gradient hover:opacity-90 text-white px-8 py-4 rounded-lg font-medium transition-all duration-200 hover:shadow-lg"
+                                class="bg-fleet-gradient hover:opacity-90 text-white px-5 py-2.5 text-sm sm:px-7 sm:py-3 sm:text-base lg:px-8 lg:py-4 rounded-lg font-medium transition-all duration-200 hover:shadow-lg"
                             >
                                 Get Started
                             </Link>
                             <Link
                                 v-if="canLogin"
                                 :href="route('login')"
-                                class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-8 py-4 rounded-lg font-medium transition-all duration-200 hover:bg-fleet-accent/10"
+                                class="bg-fleet-darker border border-fleet-accent/20 hover:border-fleet-accent/40 text-fleet-text px-5 py-2.5 text-sm sm:px-7 sm:py-3 sm:text-base lg:px-8 lg:py-4 rounded-lg font-medium transition-all duration-200 hover:bg-fleet-accent/10"
                             >
                                 Sign In
                             </Link>
