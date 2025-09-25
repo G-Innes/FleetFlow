@@ -62,7 +62,7 @@ Route::get('/dashboard', function () {
         ->where('due_date', '>=', now())
         ->where('is_completed', false)
         ->orderBy('due_date', 'asc')
-        ->limit(5)
+        ->limit(3)
         ->get()
         ->map(function ($task) {
             return [

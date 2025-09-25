@@ -21,7 +21,7 @@
     "APP_NAME": "Fleet Fox Task Management",
     "APP_ENV": "production",
     "APP_DEBUG": "false",
-    "APP_URL": "https://fleet-flow-git-main-g-innes-projects.vercel.app",
+    "APP_URL": "https://fleet-flow-gilt.vercel.app",
     "APP_KEY": "base64:2MKeILbEfhqxkcRL7y+MENBjL0j9tAG6hv8wWxZfPvc=",
     "DB_CONNECTION": "pgsql",
     "DB_HOST": "ep-lively-tree-agqntlqb-pooler.c-2.eu-central-1.aws.neon.tech",
