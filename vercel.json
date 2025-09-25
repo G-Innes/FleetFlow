@@ -15,7 +15,7 @@
     { "src": "/(.*)", "dest": "public/index.php" }
   ],
   "installCommand": "npm ci --legacy-peer-deps",
-  "buildCommand": "composer install --no-dev --optimize-autoloader && npm run build"
+  "buildCommand": "composer install --no-dev --optimize-autoloader && npm run build-prod"
   ,
   "env": {
     "APP_NAME": "Fleet Fox Task Management",
