@@ -65,8 +65,9 @@ class Task extends Model
             return false;
         }
         
+        // Check if due date is in the past (overdue) or within 3 days
         return $this->due_date->isPast() || 
-               $this->due_date->diffInDays(now()) <= 3;
+               abs($this->due_date->diffInDays(now())) <= 3;
     }
     
     /**

@@ -48,6 +48,23 @@ class TaskController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Task $task)
+    {
+        // Ensure user can only view their own tasks
+        if ($task->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $task->load('category');
+        
+        return Inertia::render('Tasks/Show', [
+            'task' => $task
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()

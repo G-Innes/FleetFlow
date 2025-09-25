@@ -172,10 +172,6 @@ function handleImageError() {
                                 <div class="text-fleet-accent font-semibold">PEST</div>
                                 <div class="text-fleet-text-muted text-sm">Testing Framework</div>
                             </div>
-                            <div class="bg-fleet-darker border border-fleet-accent/20 rounded-lg p-4 transition-all duration-500 hover:animate-gradientGlow-slow">
-                                <div class="text-fleet-accent font-semibold">Laravel Breeze</div>
-                                <div class="text-fleet-text-muted text-sm">Authentication</div>
-                            </div>
                         </div>
                     </div>
                 </main>
