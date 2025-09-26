@@ -312,6 +312,12 @@ const triggerExport = () => {
                         <div class="mt-6 flex items-center justify-between">
                             <div class="flex space-x-2">
                                 <Link
+                                    :href="route('tasks.show', task.id)"
+                                    class="text-fleet-success hover:text-fleet-success/80 text-sm font-medium transition-colors"
+                                >
+                                    View
+                                </Link>
+                                <Link
                                     :href="route('tasks.edit', task.id)"
                                     class="text-fleet-accent hover:text-fleet-accent-light text-sm font-medium transition-colors"
                                 >
