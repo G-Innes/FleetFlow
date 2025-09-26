@@ -146,6 +146,16 @@ const triggerExport = () => {
     const base = toRelative(route('tasks.export'));
     window.location.href = base + (params.toString() ? `?${params.toString()}` : '');
 };
+
+const deleteTask = (task) => {
+    if (!confirm('Are you sure you want to delete this task?')) return;
+    const url = toRelative(route('tasks.destroy', task.id));
+    router.delete(url, {}, {
+        preserveState: true,
+        preserveScroll: true,
+        replace: true,
+    });
+};
 </script>
 
 <template>
@@ -351,7 +361,7 @@ const triggerExport = () => {
                                     Edit
                                 </Link>
                                 <button
-                                    @click="router.delete(toRelative(route('tasks.destroy', task.id)), { onBefore: () => confirm('Are you sure you want to delete this task?') })"
+                                    @click="deleteTask(task)"
                                     class="text-fleet-danger hover:text-red-400 text-sm font-medium transition-colors"
                                 >
                                     Delete
