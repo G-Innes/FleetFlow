@@ -84,15 +84,41 @@ const isOverdue = (dueDate) => {
     return due < now;
 };
 
+const toRelative = (url) => {
+    try {
+        const u = new URL(url, window.location.origin);
+        return u.pathname + u.search;
+    } catch (e) {
+        return url;
+    }
+};
+
+const goToPage = (url) => {
+    if (!url) return;
+    let href = url;
+    try {
+        const u = new URL(url, window.location.origin);
+        href = u.pathname + u.search;
+    } catch (e) {
+        // already relative
+    }
+    router.get(href, {}, {
+        preserveState: true,
+        preserveScroll: true,
+        replace: true
+    });
+};
+
 const toggleTask = (task) => {
-    router.patch(route('tasks.toggle', task.id), {}, {
+    const url = toRelative(route('tasks.toggle', task.id));
+    router.patch(url, {}, {
         preserveState: true,
         preserveScroll: true,
     });
 };
 
 const applyFilters = () => {
-    router.get(route('tasks.index'), {
+    router.get(toRelative(route('tasks.index')), {
         category: categoryFilter.value,
         status: statusFilter.value,
         priority: priorityFilter.value,
@@ -117,7 +143,8 @@ const triggerExport = () => {
     if (statusFilter.value) params.set('status', statusFilter.value);
     if (priorityFilter.value) params.set('priority', priorityFilter.value);
     if (dueSoonFilter.value) params.set('due_soon', '1');
-    window.location.href = route('tasks.export') + (params.toString() ? `?${params.toString()}` : '');
+    const base = toRelative(route('tasks.export'));
+    window.location.href = base + (params.toString() ? `?${params.toString()}` : '');
 };
 </script>
 
@@ -146,7 +173,7 @@ const triggerExport = () => {
                         Export CSV
                     </button>
                     <Link 
-                        :href="route('tasks.create')" 
+                        :href="toRelative(route('tasks.create'))" 
                         class="bg-fleet-accent hover:bg-fleet-accent-light text-white px-3 py-1.5 text-xs sm:px-6 sm:py-3 sm:text-base rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-fleet-accent/25"
                     >
                         + New Task
@@ -312,19 +339,19 @@ const triggerExport = () => {
                         <div class="mt-6 flex items-center justify-between">
                             <div class="flex space-x-2">
                                 <Link
-                                    :href="route('tasks.show', task.id)"
+                                    :href="toRelative(route('tasks.show', task.id))"
                                     class="text-fleet-success hover:text-fleet-success/80 text-sm font-medium transition-colors"
                                 >
                                     View
                                 </Link>
                                 <Link
-                                    :href="route('tasks.edit', task.id)"
+                                    :href="toRelative(route('tasks.edit', task.id))"
                                     class="text-fleet-accent hover:text-fleet-accent-light text-sm font-medium transition-colors"
                                 >
                                     Edit
                                 </Link>
                                 <button
-                                    @click="router.delete(route('tasks.destroy', task.id), { onBefore: () => confirm('Are you sure you want to delete this task?') })"
+                                    @click="router.delete(toRelative(route('tasks.destroy', task.id)), { onBefore: () => confirm('Are you sure you want to delete this task?') })"
                                     class="text-fleet-danger hover:text-red-400 text-sm font-medium transition-colors"
                                 >
                                     Delete
@@ -349,7 +376,7 @@ const triggerExport = () => {
                     <h3 class="text-xl font-semibold text-fleet-text mb-2">No tasks found</h3>
                     <p class="text-fleet-text-muted mb-6">Get started by creating your first task.</p>
                     <Link 
-                        :href="route('tasks.create')" 
+                        :href="toRelative(route('tasks.create'))" 
                         class="bg-fleet-accent hover:bg-fleet-accent-light text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:shadow-fleet-accent/25"
                     >
                         Create Your First Task
@@ -359,10 +386,11 @@ const triggerExport = () => {
                 <!-- Pagination -->
                 <div v-if="tasks.links && tasks.links.length > 3" class="mt-8 flex justify-center">
                     <nav class="flex space-x-2">
-                        <Link
+                        <button
                             v-for="link in tasks.links"
                             :key="link.label"
-                            :href="link.url"
+                            @click="goToPage(link.url)"
+                            :disabled="!link.url"
                             v-html="link.label"
                             :class="{
                                 'bg-fleet-accent text-white': link.active,
